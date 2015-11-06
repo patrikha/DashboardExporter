@@ -1,4 +1,4 @@
-﻿//
+//
 //  Exporter.cpp
 //  DashboardExporter
 //
@@ -328,6 +328,12 @@ public:
                         std::ostringstream o;
                         o << m_pSession->VariantDecode_HPMUInt64(Value.m_VariantData);
                         DimensionValues[Value.m_Index].push_back(o.str());
+                        break;
+                    }
+                    case HPMSdk::EHPMDashboardChartResultDataType_Binary:
+                    {
+                        HPMUntranslatedString UString = m_pSession->VariantDecode_HPMUntranslatedString(Value.m_VariantData);
+                        DimensionValues[Value.m_Index].push_back(m_pSession->LocalizationTranslateString(m_pSession->LocalizationGetDefaultLanguage(), UString));
                         break;
                     }
                     default:
