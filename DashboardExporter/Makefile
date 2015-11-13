@@ -3,7 +3,7 @@ objectfiles := Exporter.o OptionParser.o main.o ../HansoftSDK/HPMSdkCpp.o
 
 
 DashboardExporter: $(objectfiles)
-	$(CXX) $(objectfiles) ../HansoftSDK/Linux2.6/HPMSdk.x64.so -ldl -lpthread -o DashboardExporter
+	$(CXX) $(objectfiles) ../HansoftSDK/Linux2.6/HPMSdk.x64.so -ldl -lpthread -lstdc++ -o DashboardExporter
 
 
 %.o: %.cpp $(headerfiles)
