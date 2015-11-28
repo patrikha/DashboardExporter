@@ -42,7 +42,7 @@ int main(int argc, const char * argv[]) {
     parser.add_option("-r", "--resource").dest("resource").help("Hansoft dasboard owner username").metavar("RESOURCE");
     parser.add_option("-c", "--chart").dest("chart").help("Hansoft chart id(s), use comma separated list for multiple ids.").metavar("CHART");
     parser.add_option("-x", "--resolution").dest("resolution").help("Image resolution <width> <height> <quality>").set_default("800 600 medium").metavar("RESOLUTION");
-    parser.add_option("-j", "--json").dest("json").help("Export data as JSON instead of image").metavar("JSON");
+    parser.add_option("-j", "--json").dest("json").nargs(0).help("Export data as JSON instead of image").metavar("JSON");
 
     optparse::Values options = parser.parse_args(argc, argv);
     vector<string> args = parser.args();
