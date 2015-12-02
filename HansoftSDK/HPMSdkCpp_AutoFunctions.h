@@ -1706,50 +1706,6 @@ HPMLanguage ResourceGetEffectiveLanguage(HPMUniqueID const &_ResourceID)
 
 #endif // ((!defined(DHPMSdk_OnlyDefinitions)))
 #if ((!defined(DHPMSdk_OnlyDefinitions)))
-HPMUInt64 ResourceGetDeletedDate(HPMUniqueID const &_ResourceID)
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUniqueID ResourceID;
-	NInternal::CppConvert(_ResourceID, ResourceID, CppData);
-	NInternal_C::HPMUInt64 NativeRet;
-	HPMError Error = m_SDKFunctions.ResourceGetDeletedDate(m_pSession, ResourceID, &NativeRet);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-	HPMUInt64 Ret;
-	NInternal::CppConvertReverse((const NInternal_C::HPMUInt64&)NativeRet, Ret, CppData);
-#ifdef DHansoftSDKSupportMoveSemantic
-	return std::move(Ret);
-#else
-	return Ret;
-#endif
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
-HPMUInt64 ResourceGetUndeletedDate(HPMUniqueID const &_ResourceID)
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUniqueID ResourceID;
-	NInternal::CppConvert(_ResourceID, ResourceID, CppData);
-	NInternal_C::HPMUInt64 NativeRet;
-	HPMError Error = m_SDKFunctions.ResourceGetUndeletedDate(m_pSession, ResourceID, &NativeRet);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-	HPMUInt64 Ret;
-	NInternal::CppConvertReverse((const NInternal_C::HPMUInt64&)NativeRet, Ret, CppData);
-#ifdef DHansoftSDKSupportMoveSemantic
-	return std::move(Ret);
-#else
-	return Ret;
-#endif
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
 void ResourceTimesheetPeriodDataDelete(HPMUniqueID const &_ResourceID, HPMUInt64 _EndDate)
 {
 	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
@@ -1762,28 +1718,6 @@ void ResourceTimesheetPeriodDataDelete(HPMUniqueID const &_ResourceID, HPMUInt64
 	{
 		ThrowSDKException(EHPMError(Error));
 	}
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
-bool ResourceUtilCanBeDeleted(HPMUniqueID const &_ResourceID)
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUniqueID ResourceID;
-	NInternal::CppConvert(_ResourceID, ResourceID, CppData);
-	NInternal_C::HPMInt32 NativeRet;
-	HPMError Error = m_SDKFunctions.ResourceUtilCanBeDeleted(m_pSession, ResourceID, &NativeRet);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-	bool Ret;
-	NInternal::CppConvertReverse((const NInternal_C::HPMInt32&)NativeRet, Ret, CppData);
-#ifdef DHansoftSDKSupportMoveSemantic
-	return std::move(Ret);
-#else
-	return Ret;
-#endif
 }
 
 #endif // ((!defined(DHPMSdk_OnlyDefinitions)))
@@ -2072,7 +2006,7 @@ HPMUniqueID ResourceGetDashboardPage(HPMUniqueID const &_ResourceID)
 }
 
 #endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions))) && ((defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
 void ResourceReplaceGuestResourceWithHomeResource(HPMUniqueID const &_RemoteID, HPMUniqueID const &_LocalID)
 {
 	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
@@ -2087,8 +2021,8 @@ void ResourceReplaceGuestResourceWithHomeResource(HPMUniqueID const &_RemoteID, 
 	}
 }
 
-#endif // ((!defined(DHPMSdk_OnlyDefinitions))) && ((defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)))
-#if ((!defined(DHPMSdk_OnlyDefinitions))) && ((defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)))
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
 void ResourceMakeGuestResourceAHomeResource(HPMUniqueID const &_RemoteID, HPMString const &_Name, HPMString const &_NewPassword)
 {
 	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
@@ -2105,7 +2039,7 @@ void ResourceMakeGuestResourceAHomeResource(HPMUniqueID const &_RemoteID, HPMStr
 	}
 }
 
-#endif // ((!defined(DHPMSdk_OnlyDefinitions))) && ((defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)))
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
 #if ((!defined(DHPMSdk_OnlyDefinitions)))
 HPMUniqueID ProjectCreate(HPMProjectProperties const &_Properties)
 {
@@ -2740,14 +2674,16 @@ HPMProjectCustomColumns ProjectCustomColumnsGet(HPMUniqueID const &_ProjectID)
 
 #endif // ((!defined(DHPMSdk_OnlyDefinitions)))
 #if ((!defined(DHPMSdk_OnlyDefinitions)))
-void ProjectCustomColumnsSet(HPMUniqueID const &_ProjectID, HPMProjectCustomColumns const &_Columns)
+void ProjectCustomColumnsSet(HPMUniqueID const &_ProjectID, HPMProjectCustomColumns const &_Columns, HPMProjectCustomColumnChangeHashes const &_HashChanges)
 {
 	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
 	NInternal_C::HPMUniqueID ProjectID;
 	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
 	NInternal_C::HPMProjectCustomColumns Columns;
 	NInternal::CppConvert(_Columns, Columns, CppData);
-	HPMError Error = m_SDKFunctions.ProjectCustomColumnsSet(m_pSession, ProjectID, &Columns);
+	NInternal_C::HPMProjectCustomColumnChangeHashes HashChanges;
+	NInternal::CppConvert(_HashChanges, HashChanges, CppData);
+	HPMError Error = m_SDKFunctions.ProjectCustomColumnsSet(m_pSession, ProjectID, &Columns, &HashChanges);
 	if (Error)
 	{
 		ThrowSDKException(EHPMError(Error));
@@ -2764,40 +2700,6 @@ void ProjectCustomColumnsCreate(HPMUniqueID const &_ProjectID, HPMProjectCustomC
 	NInternal_C::HPMProjectCustomColumnsColumn Column;
 	NInternal::CppConvert(_Column, Column, CppData);
 	HPMError Error = m_SDKFunctions.ProjectCustomColumnsCreate(m_pSession, ProjectID, &Column);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
-void ProjectCustomColumnsDeleteTaskData(HPMUniqueID const &_ProjectID, HPMUInt32 _ColumnHash)
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUniqueID ProjectID;
-	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
-	NInternal_C::HPMUInt32 ColumnHash;
-	NInternal::CppConvert(_ColumnHash, ColumnHash, CppData);
-	HPMError Error = m_SDKFunctions.ProjectCustomColumnsDeleteTaskData(m_pSession, ProjectID, ColumnHash);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
-void ProjectCustomColumnsRenameTaskData(HPMUniqueID const &_ProjectID, HPMUInt32 _ColumnHashFrom, HPMUInt32 _ColumnHashTo)
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUniqueID ProjectID;
-	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
-	NInternal_C::HPMUInt32 ColumnHashFrom;
-	NInternal::CppConvert(_ColumnHashFrom, ColumnHashFrom, CppData);
-	NInternal_C::HPMUInt32 ColumnHashTo;
-	NInternal::CppConvert(_ColumnHashTo, ColumnHashTo, CppData);
-	HPMError Error = m_SDKFunctions.ProjectCustomColumnsRenameTaskData(m_pSession, ProjectID, ColumnHashFrom, ColumnHashTo);
 	if (Error)
 	{
 		ThrowSDKException(EHPMError(Error));
@@ -4139,22 +4041,6 @@ HPMProjectViewPresets ProjectGetViewPresets(HPMUniqueID const &_ProjectID)
 
 #endif // ((!defined(DHPMSdk_OnlyDefinitions)))
 #if ((!defined(DHPMSdk_OnlyDefinitions)))
-void ProjectSetViewPresets(HPMUniqueID const &_ProjectID, HPMProjectViewPresets const &_Settings)
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUniqueID ProjectID;
-	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
-	NInternal_C::HPMProjectViewPresets Settings;
-	NInternal::CppConvert(_Settings, Settings, CppData);
-	HPMError Error = m_SDKFunctions.ProjectSetViewPresets(m_pSession, ProjectID, &Settings);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
 void ProjectViewPresetApply(HPMUniqueID const &_ProjectID, HPMUniqueID const &_ResourceID, HPMProjectViewPreset const &_Settings)
 {
 	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
@@ -4302,6 +4188,99 @@ HPMUInt32 ProjectGetConvertedQAWorkflow(HPMUniqueID const &_ProjectID)
 	}
 	HPMUInt32 Ret;
 	NInternal::CppConvertReverse((const NInternal_C::HPMUInt32&)NativeRet, Ret, CppData);
+#ifdef DHansoftSDKSupportMoveSemantic
+	return std::move(Ret);
+#else
+	return Ret;
+#endif
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
+void ProjectCreateViewPreset(HPMUniqueID const &_ProjectID, HPMProjectViewPreset const &_Preset)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	NInternal_C::HPMUniqueID ProjectID;
+	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
+	NInternal_C::HPMProjectViewPreset Preset;
+	NInternal::CppConvert(_Preset, Preset, CppData);
+	HPMError Error = m_SDKFunctions.ProjectCreateViewPreset(m_pSession, ProjectID, &Preset);
+	if (Error)
+	{
+		ThrowSDKException(EHPMError(Error));
+	}
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
+void ProjectChangeViewPreset(HPMUniqueID const &_ProjectID, HPMProjectViewPreset const &_Preset)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	NInternal_C::HPMUniqueID ProjectID;
+	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
+	NInternal_C::HPMProjectViewPreset Preset;
+	NInternal::CppConvert(_Preset, Preset, CppData);
+	HPMError Error = m_SDKFunctions.ProjectChangeViewPreset(m_pSession, ProjectID, &Preset);
+	if (Error)
+	{
+		ThrowSDKException(EHPMError(Error));
+	}
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
+void ProjectDeleteViewPreset(HPMUniqueID const &_ProjectID, HPMUniqueID const &_PresetID)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	NInternal_C::HPMUniqueID ProjectID;
+	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
+	NInternal_C::HPMUniqueID PresetID;
+	NInternal::CppConvert(_PresetID, PresetID, CppData);
+	HPMError Error = m_SDKFunctions.ProjectDeleteViewPreset(m_pSession, ProjectID, PresetID);
+	if (Error)
+	{
+		ThrowSDKException(EHPMError(Error));
+	}
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
+void ProjectSetColumnMetaData(HPMUniqueID const &_ProjectID, HPMColumn const &_Column, HPMProjectColumnMetaData const &_MetaData)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	NInternal_C::HPMUniqueID ProjectID;
+	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
+	NInternal_C::HPMColumn Column;
+	NInternal::CppConvert(_Column, Column, CppData);
+	NInternal_C::HPMProjectColumnMetaData MetaData;
+	NInternal::CppConvert(_MetaData, MetaData, CppData);
+	HPMError Error = m_SDKFunctions.ProjectSetColumnMetaData(m_pSession, ProjectID, &Column, &MetaData);
+	if (Error)
+	{
+		ThrowSDKException(EHPMError(Error));
+	}
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
+HPMProjectColumnMetaData ProjectGetColumnMetaData(HPMUniqueID const &_ProjectID, HPMColumn const &_Column)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	NInternal_C::HPMUniqueID ProjectID;
+	NInternal::CppConvert(_ProjectID, ProjectID, CppData);
+	NInternal_C::HPMColumn Column;
+	NInternal::CppConvert(_Column, Column, CppData);
+	const NInternal_C::HPMProjectColumnMetaData *pNativeRet = 0;
+	HPMError Error = m_SDKFunctions.ProjectGetColumnMetaData(m_pSession, ProjectID, &Column, &pNativeRet);
+	if (Error)
+	{
+		if (pNativeRet)
+			m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
+		ThrowSDKException(EHPMError(Error));
+	}
+	HPMProjectColumnMetaData Ret;
+	NInternal::CppConvertReverse((const NInternal_C::HPMProjectColumnMetaData&)(*pNativeRet), Ret, CppData);
+	m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
 #ifdef DHansoftSDKSupportMoveSemantic
 	return std::move(Ret);
 #else
@@ -11041,6 +11020,62 @@ HPMResourceDefinitionList VariantDecode_ProjectBugReportResources(HPMVariantData
 
 #endif // ((!defined(DHPMSdk_OnlyDefinitions)))
 #if ((!defined(DHPMSdk_OnlyDefinitions)))
+HPMProjectColumnMetaData VariantDecode_HPMProjectColumnMetaData(HPMVariantData const &_VariantData)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	const NInternal_C::HPMVariantData *VariantData = _VariantData.GetOriginalObject();
+	if (!VariantData)
+	{
+		ThrowSDKException(EHPMError(EHPMError_OtherError));
+	}
+	const NInternal_C::HPMProjectColumnMetaData *pNativeRet = 0;
+	HPMError Error = m_SDKFunctions.VariantDecode_HPMProjectColumnMetaData(m_pSession, VariantData, &pNativeRet);
+	if (Error)
+	{
+		if (pNativeRet)
+			m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
+		ThrowSDKException(EHPMError(Error));
+	}
+	HPMProjectColumnMetaData Ret;
+	NInternal::CppConvertReverse((const NInternal_C::HPMProjectColumnMetaData&)(*pNativeRet), Ret, CppData);
+	m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
+#ifdef DHansoftSDKSupportMoveSemantic
+	return std::move(Ret);
+#else
+	return Ret;
+#endif
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
+HPMProjectViewPreset VariantDecode_HPMProjectViewPreset(HPMVariantData const &_VariantData)
+{
+	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
+	const NInternal_C::HPMVariantData *VariantData = _VariantData.GetOriginalObject();
+	if (!VariantData)
+	{
+		ThrowSDKException(EHPMError(EHPMError_OtherError));
+	}
+	const NInternal_C::HPMProjectViewPreset *pNativeRet = 0;
+	HPMError Error = m_SDKFunctions.VariantDecode_HPMProjectViewPreset(m_pSession, VariantData, &pNativeRet);
+	if (Error)
+	{
+		if (pNativeRet)
+			m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
+		ThrowSDKException(EHPMError(Error));
+	}
+	HPMProjectViewPreset Ret;
+	NInternal::CppConvertReverse((const NInternal_C::HPMProjectViewPreset&)(*pNativeRet), Ret, CppData);
+	m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
+#ifdef DHansoftSDKSupportMoveSemantic
+	return std::move(Ret);
+#else
+	return Ret;
+#endif
+}
+
+#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
+#if ((!defined(DHPMSdk_OnlyDefinitions)))
 HPMVariantData VariantEncode_HPMInt32(HPMInt32 _Data)
 {
 	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
@@ -12087,26 +12122,6 @@ HPMColumnData UtilGetColumnData(HPMUniqueID const &_ProjectID, EHPMProjectDefaul
 	HPMColumnData Ret;
 	NInternal::CppConvertReverse((const NInternal_C::HPMColumnData&)(*pNativeRet), Ret, CppData);
 	m_SDKFunctions.ObjectFree(m_pSession, pNativeRet, nullptr);
-#ifdef DHansoftSDKSupportMoveSemantic
-	return std::move(Ret);
-#else
-	return Ret;
-#endif
-}
-
-#endif // ((!defined(DHPMSdk_OnlyDefinitions)))
-#if ((!defined(DHPMSdk_OnlyDefinitions)))
-HPMUInt64 UtilGetResourceUndeleteTimeOut()
-{
-	NInternal::CCppConvertContext CppData(&m_SDKFunctions, m_pSession);
-	NInternal_C::HPMUInt64 NativeRet;
-	HPMError Error = m_SDKFunctions.UtilGetResourceUndeleteTimeOut(m_pSession, &NativeRet);
-	if (Error)
-	{
-		ThrowSDKException(EHPMError(Error));
-	}
-	HPMUInt64 Ret;
-	NInternal::CppConvertReverse((const NInternal_C::HPMUInt64&)NativeRet, Ret, CppData);
 #ifdef DHansoftSDKSupportMoveSemantic
 	return std::move(Ret);
 #else

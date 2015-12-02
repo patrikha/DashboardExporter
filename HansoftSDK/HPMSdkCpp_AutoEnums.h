@@ -1,11 +1,11 @@
 ﻿enum EHPMSDK
 {
-	EHPMSDK_Version = 36866,
+	EHPMSDK_Version = 37121,
 };
 
 enum EHPMSDKAdvanced
 {
-	EHPMSDKAdvanced_LowestSupportedVersion = 36865,
+	EHPMSDKAdvanced_LowestSupportedVersion = 37121,
 };
 
 enum EHPMError
@@ -670,52 +670,55 @@ enum EHPMChangeCallbackOperation
 	EHPMChangeCallbackOperation_CalendarChangeWorkingDays                    = 104,
 	EHPMChangeCallbackOperation_ResourcePreferredLanguageChange              = 105,
 	EHPMChangeCallbackOperation_ResourceLastUsedLanguageChange               = 106,
-	EHPMChangeCallbackOperation_ProjectViewPresetsChange                     = 107,
-	EHPMChangeCallbackOperation_ProjectViewPresetsApplied                    = 108,
-	EHPMChangeCallbackOperation_ResourceTimesheetPeriodDataDelete            = 109,
-	EHPMChangeCallbackOperation_ProjectTimesheetLockChange                   = 110,
-	EHPMChangeCallbackOperation_GlobalTimesheetConfigChange                  = 111,
-	EHPMChangeCallbackOperation_ProjectDisplayUserMessage                    = 112,
-	EHPMChangeCallbackOperation_IDNoLongerExists                             = 113,
-	EHPMChangeCallbackOperation_TaskChangeLastResourceCommentReadTime        = 114,
-	EHPMChangeCallbackOperation_TaskEditComment                              = 115,
-	EHPMChangeCallbackOperation_TaskCommentSDKInternalDataChange             = 116,
-	EHPMChangeCallbackOperation_DynamicCustomSettingsNotification            = 117,
-	EHPMChangeCallbackOperation_DynamicCustomSettingsValueChanged            = 118,
-	EHPMChangeCallbackOperation_DynamicCustomSettingsValuesRequestResponse   = 119,
-	EHPMChangeCallbackOperation_CommunicationChannelsChanged                 = 120,
-	EHPMChangeCallbackOperation_RightClickDisplayTaskMenu                    = 121,
-	EHPMChangeCallbackOperation_RightClickDisplayWorkflowStepMenu            = 122,
-	EHPMChangeCallbackOperation_RightClickMenuItemSelected                   = 123,
-	EHPMChangeCallbackOperation_ResourceGetTimesheetDayResponse              = 124,
-	EHPMChangeCallbackOperation_TimesheetGetDateRangeResponse                = 125,
-	EHPMChangeCallbackOperation_TimesheetRowChange                           = 126,
-	EHPMChangeCallbackOperation_ChatMessage                                  = 127,
-	EHPMChangeCallbackOperation_ChatMessageLastID                            = 128,
-	EHPMChangeCallbackOperation_ChatMessageLastReadID                        = 129,
-	EHPMChangeCallbackOperation_ChatOnlineStatusChange                       = 130,
-	EHPMChangeCallbackOperation_ChatHistoryReceived                          = 131,
-	EHPMChangeCallbackOperation_VersionControlUploadAvatarFilesResponse      = 132,
-	EHPMChangeCallbackOperation_ResourceDoNotDisturbChange                   = 133,
-	EHPMChangeCallbackOperation_GlobalEmailSettingsChange                    = 134,
-	EHPMChangeCallbackOperation_CustomTaskStatusNotification                 = 135,
-	EHPMChangeCallbackOperation_DashboardChartReceive                        = 136,
-	EHPMChangeCallbackOperation_DashboardChartCreate                         = 137,
-	EHPMChangeCallbackOperation_DashboardComputationConfigurationChange      = 138,
-	EHPMChangeCallbackOperation_DashboardPresentationConfigurationChange     = 139,
-	EHPMChangeCallbackOperation_DashboardChartDelete                         = 140,
-	EHPMChangeCallbackOperation_DashboardChartNameChange                     = 141,
-	EHPMChangeCallbackOperation_DashboardPageCreate                          = 142,
-	EHPMChangeCallbackOperation_DashboardPageNameChange                      = 143,
-	EHPMChangeCallbackOperation_DashboardThemeChange                         = 144,
-	EHPMChangeCallbackOperation_DashboardPageLayoutChange                    = 145,
-	EHPMChangeCallbackOperation_DashboardPageSharedToWithViewingRightsChange = 146,
-	EHPMChangeCallbackOperation_DashboardPageSharedToWithEditingRightsChange = 147,
-	EHPMChangeCallbackOperation_DashboardPageDelete                          = 148,
-	EHPMChangeCallbackOperation_UserNotMemberOfProject                       = 149,
-	EHPMChangeCallbackOperation_ProjectBugReportResourcesChange              = 150,
-	EHPMChangeCallbackOperation_ProjectDefaultQAWorkflowChange               = 151,
-	EHPMChangeCallbackOperation_SharesUpdate                                 = 152,
+	EHPMChangeCallbackOperation_ProjectViewPresetsApplied                    = 107,
+	EHPMChangeCallbackOperation_ResourceTimesheetPeriodDataDelete            = 108,
+	EHPMChangeCallbackOperation_ProjectTimesheetLockChange                   = 109,
+	EHPMChangeCallbackOperation_GlobalTimesheetConfigChange                  = 110,
+	EHPMChangeCallbackOperation_ProjectDisplayUserMessage                    = 111,
+	EHPMChangeCallbackOperation_IDNoLongerExists                             = 112,
+	EHPMChangeCallbackOperation_TaskChangeLastResourceCommentReadTime        = 113,
+	EHPMChangeCallbackOperation_TaskEditComment                              = 114,
+	EHPMChangeCallbackOperation_TaskCommentSDKInternalDataChange             = 115,
+	EHPMChangeCallbackOperation_DynamicCustomSettingsNotification            = 116,
+	EHPMChangeCallbackOperation_DynamicCustomSettingsValueChanged            = 117,
+	EHPMChangeCallbackOperation_DynamicCustomSettingsValuesRequestResponse   = 118,
+	EHPMChangeCallbackOperation_CommunicationChannelsChanged                 = 119,
+	EHPMChangeCallbackOperation_RightClickDisplayTaskMenu                    = 120,
+	EHPMChangeCallbackOperation_RightClickDisplayWorkflowStepMenu            = 121,
+	EHPMChangeCallbackOperation_RightClickMenuItemSelected                   = 122,
+	EHPMChangeCallbackOperation_ResourceGetTimesheetDayResponse              = 123,
+	EHPMChangeCallbackOperation_TimesheetGetDateRangeResponse                = 124,
+	EHPMChangeCallbackOperation_TimesheetRowChange                           = 125,
+	EHPMChangeCallbackOperation_ChatMessage                                  = 126,
+	EHPMChangeCallbackOperation_ChatMessageLastID                            = 127,
+	EHPMChangeCallbackOperation_ChatMessageLastReadID                        = 128,
+	EHPMChangeCallbackOperation_ChatOnlineStatusChange                       = 129,
+	EHPMChangeCallbackOperation_ChatHistoryReceived                          = 130,
+	EHPMChangeCallbackOperation_VersionControlUploadAvatarFilesResponse      = 131,
+	EHPMChangeCallbackOperation_ResourceDoNotDisturbChange                   = 132,
+	EHPMChangeCallbackOperation_GlobalEmailSettingsChange                    = 133,
+	EHPMChangeCallbackOperation_CustomTaskStatusNotification                 = 134,
+	EHPMChangeCallbackOperation_DashboardChartReceive                        = 135,
+	EHPMChangeCallbackOperation_DashboardChartCreate                         = 136,
+	EHPMChangeCallbackOperation_DashboardComputationConfigurationChange      = 137,
+	EHPMChangeCallbackOperation_DashboardPresentationConfigurationChange     = 138,
+	EHPMChangeCallbackOperation_DashboardChartDelete                         = 139,
+	EHPMChangeCallbackOperation_DashboardChartNameChange                     = 140,
+	EHPMChangeCallbackOperation_DashboardPageCreate                          = 141,
+	EHPMChangeCallbackOperation_DashboardPageNameChange                      = 142,
+	EHPMChangeCallbackOperation_DashboardThemeChange                         = 143,
+	EHPMChangeCallbackOperation_DashboardPageLayoutChange                    = 144,
+	EHPMChangeCallbackOperation_DashboardPageSharedToWithViewingRightsChange = 145,
+	EHPMChangeCallbackOperation_DashboardPageSharedToWithEditingRightsChange = 146,
+	EHPMChangeCallbackOperation_DashboardPageDelete                          = 147,
+	EHPMChangeCallbackOperation_UserNotMemberOfProject                       = 148,
+	EHPMChangeCallbackOperation_ProjectBugReportResourcesChange              = 149,
+	EHPMChangeCallbackOperation_ProjectDefaultQAWorkflowChange               = 150,
+	EHPMChangeCallbackOperation_SharesUpdate                                 = 151,
+	EHPMChangeCallbackOperation_ProjectViewPresetCreate                      = 152,
+	EHPMChangeCallbackOperation_ProjectViewPresetChange                      = 153,
+	EHPMChangeCallbackOperation_ProjectViewPresetDelete                      = 154,
+	EHPMChangeCallbackOperation_ProjectColumnMetaDataChange                  = 155,
 };
 
 enum EHPMLicenseViolationReason
@@ -810,7 +813,7 @@ enum EHPMSDKSyncMethod
 enum EHPMResourceGlobalSettingsFlag
 {
 	EHPMResourceGlobalSettingsFlag_None                                           = 0,
-	EHPMResourceGlobalSettingsFlag_CopyResourceAndMiscOnTaskInsert                = 1,
+	EHPMResourceGlobalSettingsFlag_CopyMiscOnTaskInsert                           = 1,
 	EHPMResourceGlobalSettingsFlag_UnlockByDefault                                = 2,
 	EHPMResourceGlobalSettingsFlag_ShowMilestoneLinksOnTasks                      = 4,
 	EHPMResourceGlobalSettingsFlag_InstantlyEditCreatedTasks                      = 8,
@@ -994,6 +997,10 @@ enum EHPMProjectField
 	EHPMProjectField_UsersCanReportNewBugs            = 19,
 	EHPMProjectField_DefaultQAWorkflow                = 20,
 	EHPMProjectField_ConvertedQAWorkflow              = 21,
+	EHPMProjectField_NameSortValue                    = 22,
+	EHPMProjectField_ViewPresets                      = 23,
+	EHPMProjectField_DefaultColumnMetaData            = 24,
+	EHPMProjectField_CustomColumnMetaData             = 25,
 };
 
 enum EHPMProjectDefaultField
@@ -1196,6 +1203,7 @@ enum EHPMProjectPresetShowOptionFlag
 	EHPMProjectPresetShowOptionFlag_Archived                               = 4096,
 	EHPMProjectPresetShowOptionFlag_FourWeeksScheduling                    = 8192,
 	EHPMProjectPresetShowOptionFlag_ShowItemDetailsWindow                  = 16384,
+	EHPMProjectPresetShowOptionFlag_ShowAbsolutePriority                   = 32768,
 };
 
 enum EHPMProjectUserMessageType
@@ -1212,6 +1220,14 @@ enum EHPMProjectGetDefaultActivatedNonHidableColumnsFlag
 	EHPMProjectGetDefaultActivatedNonHidableColumnsFlag_ScheduledMode = 1,
 	EHPMProjectGetDefaultActivatedNonHidableColumnsFlag_AgileMode     = 2,
 	EHPMProjectGetDefaultActivatedNonHidableColumnsFlag_ProjectMode   = 4,
+};
+
+enum EHPMProjectColumnMetaDataFlag
+{
+	EHPMProjectColumnMetaDataFlag_None              = 0,
+	EHPMProjectColumnMetaDataFlag_InheritIfNotEmpty = 1,
+	EHPMProjectColumnMetaDataFlag_InheritAlways     = 2,
+	EHPMProjectColumnMetaDataFlag_InheritFromParent = 4,
 };
 
 enum EHPMTaskField
@@ -1769,6 +1785,10 @@ enum EHPMDataHistoryOrigin
 	EHPMDataHistoryOrigin_CommandChangeField_IsEpic                          = 95,
 	EHPMDataHistoryOrigin_BIHistory                                          = 96,
 	EHPMDataHistoryOrigin_ProjectSetDefaultQAWorkflow                        = 97,
+	EHPMDataHistoryOrigin_ProjectDeleteUserViewPreset                        = 98,
+	EHPMDataHistoryOrigin_ProjectChangeUserViewPreset                        = 99,
+	EHPMDataHistoryOrigin_ProjectCreateUserViewPreset                        = 100,
+	EHPMDataHistoryOrigin_ProjectSetColumnMetaData                           = 101,
 };
 
 enum EHPMStatisticsField

@@ -4608,40 +4608,6 @@ public:
 };
 
 template <>
-class TCCppConvert<HPMChangeCallbackData_ProjectViewPresetsChange, NInternal_C::HPMChangeCallbackData_ProjectViewPresetsChange>
-{
-public:
-	class CLocal : public CCppConvertContext::CLocalData
-	{
-	public:
-	};
-	
-	static void Convert(HPMChangeCallbackData_ProjectViewPresetsChange const &_From, NInternal_C::HPMChangeCallbackData_ProjectViewPresetsChange &_To, CCppConvertContext &_Context)
-	{
-		CLocal *pLocal = new CLocal;
-		_Context.InsertLocalData(pLocal);
-		CppConvert(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
-		CppConvert(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
-		CppConvert(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
-		CppConvert(_From.m_ProjectID, _To.m_ProjectID, _Context);
-		CppConvert(_From.m_ResourceID, _To.m_ResourceID, _Context);
-	}
-};
-template <>
-class TCCppConvertReverse<NInternal_C::HPMChangeCallbackData_ProjectViewPresetsChange, HPMChangeCallbackData_ProjectViewPresetsChange>
-{
-public:
-	static void Convert(NInternal_C::HPMChangeCallbackData_ProjectViewPresetsChange const &_From, HPMChangeCallbackData_ProjectViewPresetsChange &_To, CCppConvertContext &_Context)
-	{
-		CppConvertReverse(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
-		CppConvertReverse(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
-		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
-		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
-		CppConvertReverse(_From.m_ResourceID, _To.m_ResourceID, _Context);
-	}
-};
-
-template <>
 class TCCppConvert<HPMChangeCallbackData_ProjectViewPresetsApplied, NInternal_C::HPMChangeCallbackData_ProjectViewPresetsApplied>
 {
 public:
@@ -4672,6 +4638,116 @@ public:
 		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
 		CppConvertReverse(_From.m_ResourceID, _To.m_ResourceID, _Context);
 		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
+	}
+};
+
+template <>
+class TCCppConvert<HPMChangeCallbackData_ProjectViewPresetCreate, NInternal_C::HPMChangeCallbackData_ProjectViewPresetCreate>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+	};
+	
+	static void Convert(HPMChangeCallbackData_ProjectViewPresetCreate const &_From, NInternal_C::HPMChangeCallbackData_ProjectViewPresetCreate &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		CppConvert(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvert(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvert(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvert(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvert(_From.m_ResourceID, _To.m_ResourceID, _Context);
+		CppConvert(_From.m_PresetID, _To.m_PresetID, _Context);
+		CppConvert(_From.m_LocalID, _To.m_LocalID, _Context);
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMChangeCallbackData_ProjectViewPresetCreate, HPMChangeCallbackData_ProjectViewPresetCreate>
+{
+public:
+	static void Convert(NInternal_C::HPMChangeCallbackData_ProjectViewPresetCreate const &_From, HPMChangeCallbackData_ProjectViewPresetCreate &_To, CCppConvertContext &_Context)
+	{
+		CppConvertReverse(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvertReverse(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvertReverse(_From.m_ResourceID, _To.m_ResourceID, _Context);
+		CppConvertReverse(_From.m_PresetID, _To.m_PresetID, _Context);
+		CppConvertReverse(_From.m_LocalID, _To.m_LocalID, _Context);
+	}
+};
+
+template <>
+class TCCppConvert<HPMChangeCallbackData_ProjectViewPresetChange, NInternal_C::HPMChangeCallbackData_ProjectViewPresetChange>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+	};
+	
+	static void Convert(HPMChangeCallbackData_ProjectViewPresetChange const &_From, NInternal_C::HPMChangeCallbackData_ProjectViewPresetChange &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		CppConvert(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvert(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvert(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvert(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvert(_From.m_ResourceID, _To.m_ResourceID, _Context);
+		CppConvert(_From.m_PresetID, _To.m_PresetID, _Context);
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMChangeCallbackData_ProjectViewPresetChange, HPMChangeCallbackData_ProjectViewPresetChange>
+{
+public:
+	static void Convert(NInternal_C::HPMChangeCallbackData_ProjectViewPresetChange const &_From, HPMChangeCallbackData_ProjectViewPresetChange &_To, CCppConvertContext &_Context)
+	{
+		CppConvertReverse(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvertReverse(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvertReverse(_From.m_ResourceID, _To.m_ResourceID, _Context);
+		CppConvertReverse(_From.m_PresetID, _To.m_PresetID, _Context);
+	}
+};
+
+template <>
+class TCCppConvert<HPMChangeCallbackData_ProjectViewPresetDelete, NInternal_C::HPMChangeCallbackData_ProjectViewPresetDelete>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+	};
+	
+	static void Convert(HPMChangeCallbackData_ProjectViewPresetDelete const &_From, NInternal_C::HPMChangeCallbackData_ProjectViewPresetDelete &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		CppConvert(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvert(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvert(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvert(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvert(_From.m_ResourceID, _To.m_ResourceID, _Context);
+		CppConvert(_From.m_PresetID, _To.m_PresetID, _Context);
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMChangeCallbackData_ProjectViewPresetDelete, HPMChangeCallbackData_ProjectViewPresetDelete>
+{
+public:
+	static void Convert(NInternal_C::HPMChangeCallbackData_ProjectViewPresetDelete const &_From, HPMChangeCallbackData_ProjectViewPresetDelete &_To, CCppConvertContext &_Context)
+	{
+		CppConvertReverse(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvertReverse(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvertReverse(_From.m_ResourceID, _To.m_ResourceID, _Context);
+		CppConvertReverse(_From.m_PresetID, _To.m_PresetID, _Context);
 	}
 };
 
@@ -5356,6 +5432,40 @@ public:
 		CppConvertReverse(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
 		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
 		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
+	}
+};
+
+template <>
+class TCCppConvert<HPMChangeCallbackData_ProjectColumnMetaDataChange, NInternal_C::HPMChangeCallbackData_ProjectColumnMetaDataChange>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+	};
+	
+	static void Convert(HPMChangeCallbackData_ProjectColumnMetaDataChange const &_From, NInternal_C::HPMChangeCallbackData_ProjectColumnMetaDataChange &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		CppConvert(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvert(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvert(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvert(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvert(_From.m_Column, _To.m_Column, _Context);
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMChangeCallbackData_ProjectColumnMetaDataChange, HPMChangeCallbackData_ProjectColumnMetaDataChange>
+{
+public:
+	static void Convert(NInternal_C::HPMChangeCallbackData_ProjectColumnMetaDataChange const &_From, HPMChangeCallbackData_ProjectColumnMetaDataChange &_To, CCppConvertContext &_Context)
+	{
+		CppConvertReverse(_From.m_bChangeInitiatedFromThisSession, _To.m_bChangeInitiatedFromThisSession, _Context);
+		CppConvertReverse(_From.m_ChangedByResourceID, _To.m_ChangedByResourceID, _Context);
+		CppConvertReverse(_From.m_ChangedByImpersonatedResourceID, _To.m_ChangedByImpersonatedResourceID, _Context);
+		CppConvertReverse(_From.m_ProjectID, _To.m_ProjectID, _Context);
+		CppConvertReverse(_From.m_Column, _To.m_Column, _Context);
 	}
 };
 
@@ -10756,6 +10866,80 @@ public:
 };
 
 template <>
+class TCCppConvert<HPMProjectCustomColumnChangeHash, NInternal_C::HPMProjectCustomColumnChangeHash>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+	};
+	
+	static void Convert(HPMProjectCustomColumnChangeHash const &_From, NInternal_C::HPMProjectCustomColumnChangeHash &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		CppConvert(_From.m_HashFrom, _To.m_HashFrom, _Context);
+		CppConvert(_From.m_HashTo, _To.m_HashTo, _Context);
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMProjectCustomColumnChangeHash, HPMProjectCustomColumnChangeHash>
+{
+public:
+	static void Convert(NInternal_C::HPMProjectCustomColumnChangeHash const &_From, HPMProjectCustomColumnChangeHash &_To, CCppConvertContext &_Context)
+	{
+		CppConvertReverse(_From.m_HashFrom, _To.m_HashFrom, _Context);
+		CppConvertReverse(_From.m_HashTo, _To.m_HashTo, _Context);
+	}
+};
+
+template <>
+class TCCppConvert<HPMProjectCustomColumnChangeHashes, NInternal_C::HPMProjectCustomColumnChangeHashes>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+		std::vector<NInternal_C::HPMProjectCustomColumnChangeHash> m_HashChanges;
+	};
+	
+	static void Convert(HPMProjectCustomColumnChangeHashes const &_From, NInternal_C::HPMProjectCustomColumnChangeHashes &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		{
+			size_t nMembers = _From.m_HashChanges.size();
+			pLocal->m_HashChanges.resize(nMembers);
+			_To.m_nHashChanges = (unsigned int)nMembers;
+			if (nMembers)
+				_To.m_pHashChanges = &(*pLocal->m_HashChanges.begin());
+			else
+				_To.m_pHashChanges = 0;
+			for (size_t i = 0; i < nMembers; ++i)
+			{
+				CppConvert(_From.m_HashChanges[i], pLocal->m_HashChanges[i], _Context);
+			}
+		}
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMProjectCustomColumnChangeHashes, HPMProjectCustomColumnChangeHashes>
+{
+public:
+	static void Convert(NInternal_C::HPMProjectCustomColumnChangeHashes const &_From, HPMProjectCustomColumnChangeHashes &_To, CCppConvertContext &_Context)
+	{
+		{
+			size_t nMembers = _From.m_nHashChanges;
+			_To.m_HashChanges.resize(nMembers);
+			for (size_t i = 0; i < nMembers; ++i)
+			{
+				CppConvertReverse(_From.m_pHashChanges[i], _To.m_HashChanges[i], _Context);
+			}
+		}
+	}
+};
+
+template <>
 class TCCppConvert<HPMProjectCustomColumnAncestryEntry, NInternal_C::HPMProjectCustomColumnAncestryEntry>
 {
 public:
@@ -12158,7 +12342,8 @@ public:
 	class CLocal : public CCppConvertContext::CLocalData
 	{
 	public:
-		std::vector<NInternal_C::HPMResourceDefinition> m_Resources;
+		std::vector<NInternal_C::HPMResourceDefinition> m_ShareWithUsers;
+		std::vector<NInternal_C::HPMResourceDefinition> m_ShareWithEditRights;
 		std::vector<NInternal_C::HPMColumn> m_Columns;
 		std::vector<NInternal_C::HPMColumn> m_ColumnsOrder;
 		std::vector<NInternal_C::HPMColumn> m_ItemSettingsColumns;
@@ -12171,20 +12356,36 @@ public:
 	{
 		CLocal *pLocal = new CLocal;
 		_Context.InsertLocalData(pLocal);
-		CppConvert(_From.m_Name, _To.m_pName, _Context);
+		CppConvert(_From.m_ID, _To.m_ID, _Context);
+		CppConvert(_From.m_LocalID, _To.m_LocalID, _Context);
+		CppConvert(_From.m_CreatedBy, _To.m_CreatedBy, _Context);
 		{
-			size_t nMembers = _From.m_Resources.size();
-			pLocal->m_Resources.resize(nMembers);
-			_To.m_nResources = (unsigned int)nMembers;
+			size_t nMembers = _From.m_ShareWithUsers.size();
+			pLocal->m_ShareWithUsers.resize(nMembers);
+			_To.m_nShareWithUsers = (unsigned int)nMembers;
 			if (nMembers)
-				_To.m_pResources = &(*pLocal->m_Resources.begin());
+				_To.m_pShareWithUsers = &(*pLocal->m_ShareWithUsers.begin());
 			else
-				_To.m_pResources = 0;
+				_To.m_pShareWithUsers = 0;
 			for (size_t i = 0; i < nMembers; ++i)
 			{
-				CppConvert(_From.m_Resources[i], pLocal->m_Resources[i], _Context);
+				CppConvert(_From.m_ShareWithUsers[i], pLocal->m_ShareWithUsers[i], _Context);
 			}
 		}
+		{
+			size_t nMembers = _From.m_ShareWithEditRights.size();
+			pLocal->m_ShareWithEditRights.resize(nMembers);
+			_To.m_nShareWithEditRights = (unsigned int)nMembers;
+			if (nMembers)
+				_To.m_pShareWithEditRights = &(*pLocal->m_ShareWithEditRights.begin());
+			else
+				_To.m_pShareWithEditRights = 0;
+			for (size_t i = 0; i < nMembers; ++i)
+			{
+				CppConvert(_From.m_ShareWithEditRights[i], pLocal->m_ShareWithEditRights[i], _Context);
+			}
+		}
+		CppConvert(_From.m_Name, _To.m_pName, _Context);
 		{
 			size_t nMembers = _From.m_Columns.size();
 			pLocal->m_Columns.resize(nMembers);
@@ -12272,15 +12473,26 @@ class TCCppConvertReverse<NInternal_C::HPMProjectViewPreset, HPMProjectViewPrese
 public:
 	static void Convert(NInternal_C::HPMProjectViewPreset const &_From, HPMProjectViewPreset &_To, CCppConvertContext &_Context)
 	{
-		CppConvertReverse(_From.m_pName, _To.m_Name, _Context);
+		CppConvertReverse(_From.m_ID, _To.m_ID, _Context);
+		CppConvertReverse(_From.m_LocalID, _To.m_LocalID, _Context);
+		CppConvertReverse(_From.m_CreatedBy, _To.m_CreatedBy, _Context);
 		{
-			size_t nMembers = _From.m_nResources;
-			_To.m_Resources.resize(nMembers);
+			size_t nMembers = _From.m_nShareWithUsers;
+			_To.m_ShareWithUsers.resize(nMembers);
 			for (size_t i = 0; i < nMembers; ++i)
 			{
-				CppConvertReverse(_From.m_pResources[i], _To.m_Resources[i], _Context);
+				CppConvertReverse(_From.m_pShareWithUsers[i], _To.m_ShareWithUsers[i], _Context);
 			}
 		}
+		{
+			size_t nMembers = _From.m_nShareWithEditRights;
+			_To.m_ShareWithEditRights.resize(nMembers);
+			for (size_t i = 0; i < nMembers; ++i)
+			{
+				CppConvertReverse(_From.m_pShareWithEditRights[i], _To.m_ShareWithEditRights[i], _Context);
+			}
+		}
+		CppConvertReverse(_From.m_pName, _To.m_Name, _Context);
 		{
 			size_t nMembers = _From.m_nColumns;
 			_To.m_Columns.resize(nMembers);
@@ -12376,6 +12588,38 @@ public:
 				CppConvertReverse(_From.m_pPresets[i], _To.m_Presets[i], _Context);
 			}
 		}
+	}
+};
+
+template <>
+class TCCppConvert<HPMProjectColumnMetaData, NInternal_C::HPMProjectColumnMetaData>
+{
+public:
+	class CLocal : public CCppConvertContext::CLocalData
+	{
+	public:
+	};
+	
+	static void Convert(HPMProjectColumnMetaData const &_From, NInternal_C::HPMProjectColumnMetaData &_To, CCppConvertContext &_Context)
+	{
+		CLocal *pLocal = new CLocal;
+		_Context.InsertLocalData(pLocal);
+		CppConvert(_From.m_DetailedDescription, _To.m_pDetailedDescription, _Context);
+		CppConvert(_From.m_DefaultValue, _To.m_pDefaultValue, _Context);
+		CppConvert(_From.m_EditableBy, _To.m_EditableBy, _Context);
+		CppConvert(_From.m_Flags, _To.m_Flags, _Context);
+	}
+};
+template <>
+class TCCppConvertReverse<NInternal_C::HPMProjectColumnMetaData, HPMProjectColumnMetaData>
+{
+public:
+	static void Convert(NInternal_C::HPMProjectColumnMetaData const &_From, HPMProjectColumnMetaData &_To, CCppConvertContext &_Context)
+	{
+		CppConvertReverse(_From.m_pDetailedDescription, _To.m_DetailedDescription, _Context);
+		CppConvertReverse(_From.m_pDefaultValue, _To.m_DefaultValue, _Context);
+		CppConvertReverse(_From.m_EditableBy, _To.m_EditableBy, _Context);
+		CppConvertReverse(_From.m_Flags, _To.m_Flags, _Context);
 	}
 };
 

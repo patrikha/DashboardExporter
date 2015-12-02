@@ -38,7 +38,7 @@
 #endif
 	bool operator == (const HPMUntranslatedString &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -54,7 +54,7 @@
 	}
 	bool operator < (const HPMUntranslatedString &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -1547,7 +1547,7 @@ class HPMVariantData
 #endif
 	bool operator == (const HPMVariantData &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -1563,7 +1563,7 @@ class HPMVariantData
 	}
 	bool operator < (const HPMVariantData &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -2376,7 +2376,7 @@ class HPMFindContextData
 #endif
 	bool operator == (const HPMFindContextData &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -2392,7 +2392,7 @@ class HPMFindContextData
 	}
 	bool operator < (const HPMFindContextData &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -2794,7 +2794,7 @@ class HPMFindCriteriaData
 #endif
 	bool operator == (const HPMFindCriteriaData &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -2810,7 +2810,7 @@ class HPMFindCriteriaData
 	}
 	bool operator < (const HPMFindCriteriaData &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -4961,7 +4961,7 @@ class HPMDynamicCustomSettingsContext
 #endif
 	bool operator == (const HPMDynamicCustomSettingsContext &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -4977,7 +4977,7 @@ class HPMDynamicCustomSettingsContext
 	}
 	bool operator < (const HPMDynamicCustomSettingsContext &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -5041,7 +5041,7 @@ class HPMRightClickContext
 #endif
 	bool operator == (const HPMRightClickContext &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -5057,7 +5057,7 @@ class HPMRightClickContext
 	}
 	bool operator < (const HPMRightClickContext &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -6469,7 +6469,7 @@ class HPMDashboardChartSubscription
 #endif
 	bool operator == (const HPMDashboardChartSubscription &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -6487,7 +6487,7 @@ class HPMDashboardChartSubscription
 	}
 	bool operator < (const HPMDashboardChartSubscription &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -10134,109 +10134,6 @@ class HPMChangeCallbackData_ResourceGroupsChange
 	}
 };
 
-class HPMChangeCallbackData_ProjectViewPresetsChange
-{
-	public:
-	bool m_bChangeInitiatedFromThisSession;
-	HPMUniqueID m_ChangedByResourceID;
-	HPMUniqueID m_ChangedByImpersonatedResourceID;
-	HPMUniqueID m_ProjectID;
-	HPMUniqueID m_ResourceID;
-	HPMChangeCallbackData_ProjectViewPresetsChange()
-	{
-	}
-#ifdef DHansoftSDKSupportMoveSemantic
-	HPMChangeCallbackData_ProjectViewPresetsChange(HPMChangeCallbackData_ProjectViewPresetsChange const &_Right)
-		: m_bChangeInitiatedFromThisSession(_Right.m_bChangeInitiatedFromThisSession)
-		, m_ChangedByResourceID(_Right.m_ChangedByResourceID)
-		, m_ChangedByImpersonatedResourceID(_Right.m_ChangedByImpersonatedResourceID)
-		, m_ProjectID(_Right.m_ProjectID)
-		, m_ResourceID(_Right.m_ResourceID)
-	{
-	}
-	HPMChangeCallbackData_ProjectViewPresetsChange(HPMChangeCallbackData_ProjectViewPresetsChange &&_Right)
-		: m_bChangeInitiatedFromThisSession(std::move(_Right.m_bChangeInitiatedFromThisSession))
-		, m_ChangedByResourceID(std::move(_Right.m_ChangedByResourceID))
-		, m_ChangedByImpersonatedResourceID(std::move(_Right.m_ChangedByImpersonatedResourceID))
-		, m_ProjectID(std::move(_Right.m_ProjectID))
-		, m_ResourceID(std::move(_Right.m_ResourceID))
-	{
-	}
-	HPMChangeCallbackData_ProjectViewPresetsChange &operator =(HPMChangeCallbackData_ProjectViewPresetsChange const &_Right)
-	{
-		m_bChangeInitiatedFromThisSession = _Right.m_bChangeInitiatedFromThisSession;
-		m_ChangedByResourceID = _Right.m_ChangedByResourceID;
-		m_ChangedByImpersonatedResourceID = _Right.m_ChangedByImpersonatedResourceID;
-		m_ProjectID = _Right.m_ProjectID;
-		m_ResourceID = _Right.m_ResourceID;
-		return *this;
-	}
-	HPMChangeCallbackData_ProjectViewPresetsChange &operator =(HPMChangeCallbackData_ProjectViewPresetsChange &&_Right)
-	{
-		m_bChangeInitiatedFromThisSession = std::move(_Right.m_bChangeInitiatedFromThisSession);
-		m_ChangedByResourceID = std::move(_Right.m_ChangedByResourceID);
-		m_ChangedByImpersonatedResourceID = std::move(_Right.m_ChangedByImpersonatedResourceID);
-		m_ProjectID = std::move(_Right.m_ProjectID);
-		m_ResourceID = std::move(_Right.m_ResourceID);
-		return *this;
-	}
-#endif
-	bool operator == (const HPMChangeCallbackData_ProjectViewPresetsChange &_Right) const
-	{
-		if (m_bChangeInitiatedFromThisSession != _Right.m_bChangeInitiatedFromThisSession)
-			return false;
-		if (m_ChangedByResourceID != _Right.m_ChangedByResourceID)
-			return false;
-		if (m_ChangedByImpersonatedResourceID != _Right.m_ChangedByImpersonatedResourceID)
-			return false;
-		if (m_ProjectID != _Right.m_ProjectID)
-			return false;
-		if (m_ResourceID != _Right.m_ResourceID)
-			return false;
-		return true;
-	}
-	bool operator != (const HPMChangeCallbackData_ProjectViewPresetsChange &_Right) const
-	{
-		return !(*this == _Right);
-	}
-	bool operator < (const HPMChangeCallbackData_ProjectViewPresetsChange &_Right) const
-	{
-		if (m_bChangeInitiatedFromThisSession < _Right.m_bChangeInitiatedFromThisSession)
-			return true;
-		if (m_bChangeInitiatedFromThisSession > _Right.m_bChangeInitiatedFromThisSession)
-			return false;
-		if (m_ChangedByResourceID < _Right.m_ChangedByResourceID)
-			return true;
-		if (m_ChangedByResourceID > _Right.m_ChangedByResourceID)
-			return false;
-		if (m_ChangedByImpersonatedResourceID < _Right.m_ChangedByImpersonatedResourceID)
-			return true;
-		if (m_ChangedByImpersonatedResourceID > _Right.m_ChangedByImpersonatedResourceID)
-			return false;
-		if (m_ProjectID < _Right.m_ProjectID)
-			return true;
-		if (m_ProjectID > _Right.m_ProjectID)
-			return false;
-		if (m_ResourceID < _Right.m_ResourceID)
-			return true;
-		if (m_ResourceID > _Right.m_ResourceID)
-			return false;
-		return false;
-	}
-	bool operator > (const HPMChangeCallbackData_ProjectViewPresetsChange &_Right) const
-	{
-		return _Right < *this;
-	}
-	bool operator <= (const HPMChangeCallbackData_ProjectViewPresetsChange &_Right) const
-	{
-		return !(_Right < *this);
-	}
-	bool operator >= (const HPMChangeCallbackData_ProjectViewPresetsChange &_Right) const
-	{
-		return !(*this < _Right);
-	}
-};
-
 class HPMChangeCallbackData_ProjectViewPresetsApplied
 {
 	public:
@@ -10335,6 +10232,359 @@ class HPMChangeCallbackData_ProjectViewPresetsApplied
 		return !(_Right < *this);
 	}
 	bool operator >= (const HPMChangeCallbackData_ProjectViewPresetsApplied &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
+class HPMChangeCallbackData_ProjectViewPresetCreate
+{
+	public:
+	bool m_bChangeInitiatedFromThisSession;
+	HPMUniqueID m_ChangedByResourceID;
+	HPMUniqueID m_ChangedByImpersonatedResourceID;
+	HPMUniqueID m_ProjectID;
+	HPMUniqueID m_ResourceID;
+	HPMUniqueID m_PresetID;
+	HPMUniqueID m_LocalID;
+	HPMChangeCallbackData_ProjectViewPresetCreate()
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMChangeCallbackData_ProjectViewPresetCreate(HPMChangeCallbackData_ProjectViewPresetCreate const &_Right)
+		: m_bChangeInitiatedFromThisSession(_Right.m_bChangeInitiatedFromThisSession)
+		, m_ChangedByResourceID(_Right.m_ChangedByResourceID)
+		, m_ChangedByImpersonatedResourceID(_Right.m_ChangedByImpersonatedResourceID)
+		, m_ProjectID(_Right.m_ProjectID)
+		, m_ResourceID(_Right.m_ResourceID)
+		, m_PresetID(_Right.m_PresetID)
+		, m_LocalID(_Right.m_LocalID)
+	{
+	}
+	HPMChangeCallbackData_ProjectViewPresetCreate(HPMChangeCallbackData_ProjectViewPresetCreate &&_Right)
+		: m_bChangeInitiatedFromThisSession(std::move(_Right.m_bChangeInitiatedFromThisSession))
+		, m_ChangedByResourceID(std::move(_Right.m_ChangedByResourceID))
+		, m_ChangedByImpersonatedResourceID(std::move(_Right.m_ChangedByImpersonatedResourceID))
+		, m_ProjectID(std::move(_Right.m_ProjectID))
+		, m_ResourceID(std::move(_Right.m_ResourceID))
+		, m_PresetID(std::move(_Right.m_PresetID))
+		, m_LocalID(std::move(_Right.m_LocalID))
+	{
+	}
+	HPMChangeCallbackData_ProjectViewPresetCreate &operator =(HPMChangeCallbackData_ProjectViewPresetCreate const &_Right)
+	{
+		m_bChangeInitiatedFromThisSession = _Right.m_bChangeInitiatedFromThisSession;
+		m_ChangedByResourceID = _Right.m_ChangedByResourceID;
+		m_ChangedByImpersonatedResourceID = _Right.m_ChangedByImpersonatedResourceID;
+		m_ProjectID = _Right.m_ProjectID;
+		m_ResourceID = _Right.m_ResourceID;
+		m_PresetID = _Right.m_PresetID;
+		m_LocalID = _Right.m_LocalID;
+		return *this;
+	}
+	HPMChangeCallbackData_ProjectViewPresetCreate &operator =(HPMChangeCallbackData_ProjectViewPresetCreate &&_Right)
+	{
+		m_bChangeInitiatedFromThisSession = std::move(_Right.m_bChangeInitiatedFromThisSession);
+		m_ChangedByResourceID = std::move(_Right.m_ChangedByResourceID);
+		m_ChangedByImpersonatedResourceID = std::move(_Right.m_ChangedByImpersonatedResourceID);
+		m_ProjectID = std::move(_Right.m_ProjectID);
+		m_ResourceID = std::move(_Right.m_ResourceID);
+		m_PresetID = std::move(_Right.m_PresetID);
+		m_LocalID = std::move(_Right.m_LocalID);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMChangeCallbackData_ProjectViewPresetCreate &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession != _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID != _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID != _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID != _Right.m_ProjectID)
+			return false;
+		if (m_ResourceID != _Right.m_ResourceID)
+			return false;
+		if (m_PresetID != _Right.m_PresetID)
+			return false;
+		if (m_LocalID != _Right.m_LocalID)
+			return false;
+		return true;
+	}
+	bool operator != (const HPMChangeCallbackData_ProjectViewPresetCreate &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMChangeCallbackData_ProjectViewPresetCreate &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession < _Right.m_bChangeInitiatedFromThisSession)
+			return true;
+		if (m_bChangeInitiatedFromThisSession > _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID < _Right.m_ChangedByResourceID)
+			return true;
+		if (m_ChangedByResourceID > _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID < _Right.m_ChangedByImpersonatedResourceID)
+			return true;
+		if (m_ChangedByImpersonatedResourceID > _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID < _Right.m_ProjectID)
+			return true;
+		if (m_ProjectID > _Right.m_ProjectID)
+			return false;
+		if (m_ResourceID < _Right.m_ResourceID)
+			return true;
+		if (m_ResourceID > _Right.m_ResourceID)
+			return false;
+		if (m_PresetID < _Right.m_PresetID)
+			return true;
+		if (m_PresetID > _Right.m_PresetID)
+			return false;
+		if (m_LocalID < _Right.m_LocalID)
+			return true;
+		if (m_LocalID > _Right.m_LocalID)
+			return false;
+		return false;
+	}
+	bool operator > (const HPMChangeCallbackData_ProjectViewPresetCreate &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMChangeCallbackData_ProjectViewPresetCreate &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMChangeCallbackData_ProjectViewPresetCreate &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
+class HPMChangeCallbackData_ProjectViewPresetChange
+{
+	public:
+	bool m_bChangeInitiatedFromThisSession;
+	HPMUniqueID m_ChangedByResourceID;
+	HPMUniqueID m_ChangedByImpersonatedResourceID;
+	HPMUniqueID m_ProjectID;
+	HPMUniqueID m_ResourceID;
+	HPMUniqueID m_PresetID;
+	HPMChangeCallbackData_ProjectViewPresetChange()
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMChangeCallbackData_ProjectViewPresetChange(HPMChangeCallbackData_ProjectViewPresetChange const &_Right)
+		: m_bChangeInitiatedFromThisSession(_Right.m_bChangeInitiatedFromThisSession)
+		, m_ChangedByResourceID(_Right.m_ChangedByResourceID)
+		, m_ChangedByImpersonatedResourceID(_Right.m_ChangedByImpersonatedResourceID)
+		, m_ProjectID(_Right.m_ProjectID)
+		, m_ResourceID(_Right.m_ResourceID)
+		, m_PresetID(_Right.m_PresetID)
+	{
+	}
+	HPMChangeCallbackData_ProjectViewPresetChange(HPMChangeCallbackData_ProjectViewPresetChange &&_Right)
+		: m_bChangeInitiatedFromThisSession(std::move(_Right.m_bChangeInitiatedFromThisSession))
+		, m_ChangedByResourceID(std::move(_Right.m_ChangedByResourceID))
+		, m_ChangedByImpersonatedResourceID(std::move(_Right.m_ChangedByImpersonatedResourceID))
+		, m_ProjectID(std::move(_Right.m_ProjectID))
+		, m_ResourceID(std::move(_Right.m_ResourceID))
+		, m_PresetID(std::move(_Right.m_PresetID))
+	{
+	}
+	HPMChangeCallbackData_ProjectViewPresetChange &operator =(HPMChangeCallbackData_ProjectViewPresetChange const &_Right)
+	{
+		m_bChangeInitiatedFromThisSession = _Right.m_bChangeInitiatedFromThisSession;
+		m_ChangedByResourceID = _Right.m_ChangedByResourceID;
+		m_ChangedByImpersonatedResourceID = _Right.m_ChangedByImpersonatedResourceID;
+		m_ProjectID = _Right.m_ProjectID;
+		m_ResourceID = _Right.m_ResourceID;
+		m_PresetID = _Right.m_PresetID;
+		return *this;
+	}
+	HPMChangeCallbackData_ProjectViewPresetChange &operator =(HPMChangeCallbackData_ProjectViewPresetChange &&_Right)
+	{
+		m_bChangeInitiatedFromThisSession = std::move(_Right.m_bChangeInitiatedFromThisSession);
+		m_ChangedByResourceID = std::move(_Right.m_ChangedByResourceID);
+		m_ChangedByImpersonatedResourceID = std::move(_Right.m_ChangedByImpersonatedResourceID);
+		m_ProjectID = std::move(_Right.m_ProjectID);
+		m_ResourceID = std::move(_Right.m_ResourceID);
+		m_PresetID = std::move(_Right.m_PresetID);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMChangeCallbackData_ProjectViewPresetChange &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession != _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID != _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID != _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID != _Right.m_ProjectID)
+			return false;
+		if (m_ResourceID != _Right.m_ResourceID)
+			return false;
+		if (m_PresetID != _Right.m_PresetID)
+			return false;
+		return true;
+	}
+	bool operator != (const HPMChangeCallbackData_ProjectViewPresetChange &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMChangeCallbackData_ProjectViewPresetChange &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession < _Right.m_bChangeInitiatedFromThisSession)
+			return true;
+		if (m_bChangeInitiatedFromThisSession > _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID < _Right.m_ChangedByResourceID)
+			return true;
+		if (m_ChangedByResourceID > _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID < _Right.m_ChangedByImpersonatedResourceID)
+			return true;
+		if (m_ChangedByImpersonatedResourceID > _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID < _Right.m_ProjectID)
+			return true;
+		if (m_ProjectID > _Right.m_ProjectID)
+			return false;
+		if (m_ResourceID < _Right.m_ResourceID)
+			return true;
+		if (m_ResourceID > _Right.m_ResourceID)
+			return false;
+		if (m_PresetID < _Right.m_PresetID)
+			return true;
+		if (m_PresetID > _Right.m_PresetID)
+			return false;
+		return false;
+	}
+	bool operator > (const HPMChangeCallbackData_ProjectViewPresetChange &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMChangeCallbackData_ProjectViewPresetChange &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMChangeCallbackData_ProjectViewPresetChange &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
+class HPMChangeCallbackData_ProjectViewPresetDelete
+{
+	public:
+	bool m_bChangeInitiatedFromThisSession;
+	HPMUniqueID m_ChangedByResourceID;
+	HPMUniqueID m_ChangedByImpersonatedResourceID;
+	HPMUniqueID m_ProjectID;
+	HPMUniqueID m_ResourceID;
+	HPMUniqueID m_PresetID;
+	HPMChangeCallbackData_ProjectViewPresetDelete()
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMChangeCallbackData_ProjectViewPresetDelete(HPMChangeCallbackData_ProjectViewPresetDelete const &_Right)
+		: m_bChangeInitiatedFromThisSession(_Right.m_bChangeInitiatedFromThisSession)
+		, m_ChangedByResourceID(_Right.m_ChangedByResourceID)
+		, m_ChangedByImpersonatedResourceID(_Right.m_ChangedByImpersonatedResourceID)
+		, m_ProjectID(_Right.m_ProjectID)
+		, m_ResourceID(_Right.m_ResourceID)
+		, m_PresetID(_Right.m_PresetID)
+	{
+	}
+	HPMChangeCallbackData_ProjectViewPresetDelete(HPMChangeCallbackData_ProjectViewPresetDelete &&_Right)
+		: m_bChangeInitiatedFromThisSession(std::move(_Right.m_bChangeInitiatedFromThisSession))
+		, m_ChangedByResourceID(std::move(_Right.m_ChangedByResourceID))
+		, m_ChangedByImpersonatedResourceID(std::move(_Right.m_ChangedByImpersonatedResourceID))
+		, m_ProjectID(std::move(_Right.m_ProjectID))
+		, m_ResourceID(std::move(_Right.m_ResourceID))
+		, m_PresetID(std::move(_Right.m_PresetID))
+	{
+	}
+	HPMChangeCallbackData_ProjectViewPresetDelete &operator =(HPMChangeCallbackData_ProjectViewPresetDelete const &_Right)
+	{
+		m_bChangeInitiatedFromThisSession = _Right.m_bChangeInitiatedFromThisSession;
+		m_ChangedByResourceID = _Right.m_ChangedByResourceID;
+		m_ChangedByImpersonatedResourceID = _Right.m_ChangedByImpersonatedResourceID;
+		m_ProjectID = _Right.m_ProjectID;
+		m_ResourceID = _Right.m_ResourceID;
+		m_PresetID = _Right.m_PresetID;
+		return *this;
+	}
+	HPMChangeCallbackData_ProjectViewPresetDelete &operator =(HPMChangeCallbackData_ProjectViewPresetDelete &&_Right)
+	{
+		m_bChangeInitiatedFromThisSession = std::move(_Right.m_bChangeInitiatedFromThisSession);
+		m_ChangedByResourceID = std::move(_Right.m_ChangedByResourceID);
+		m_ChangedByImpersonatedResourceID = std::move(_Right.m_ChangedByImpersonatedResourceID);
+		m_ProjectID = std::move(_Right.m_ProjectID);
+		m_ResourceID = std::move(_Right.m_ResourceID);
+		m_PresetID = std::move(_Right.m_PresetID);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMChangeCallbackData_ProjectViewPresetDelete &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession != _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID != _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID != _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID != _Right.m_ProjectID)
+			return false;
+		if (m_ResourceID != _Right.m_ResourceID)
+			return false;
+		if (m_PresetID != _Right.m_PresetID)
+			return false;
+		return true;
+	}
+	bool operator != (const HPMChangeCallbackData_ProjectViewPresetDelete &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMChangeCallbackData_ProjectViewPresetDelete &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession < _Right.m_bChangeInitiatedFromThisSession)
+			return true;
+		if (m_bChangeInitiatedFromThisSession > _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID < _Right.m_ChangedByResourceID)
+			return true;
+		if (m_ChangedByResourceID > _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID < _Right.m_ChangedByImpersonatedResourceID)
+			return true;
+		if (m_ChangedByImpersonatedResourceID > _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID < _Right.m_ProjectID)
+			return true;
+		if (m_ProjectID > _Right.m_ProjectID)
+			return false;
+		if (m_ResourceID < _Right.m_ResourceID)
+			return true;
+		if (m_ResourceID > _Right.m_ResourceID)
+			return false;
+		if (m_PresetID < _Right.m_PresetID)
+			return true;
+		if (m_PresetID > _Right.m_PresetID)
+			return false;
+		return false;
+	}
+	bool operator > (const HPMChangeCallbackData_ProjectViewPresetDelete &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMChangeCallbackData_ProjectViewPresetDelete &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMChangeCallbackData_ProjectViewPresetDelete &_Right) const
 	{
 		return !(*this < _Right);
 	}
@@ -12320,6 +12570,109 @@ class HPMChangeCallbackData_ProjectStatisticsSettingsChange
 		return !(_Right < *this);
 	}
 	bool operator >= (const HPMChangeCallbackData_ProjectStatisticsSettingsChange &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
+class HPMChangeCallbackData_ProjectColumnMetaDataChange
+{
+	public:
+	bool m_bChangeInitiatedFromThisSession;
+	HPMUniqueID m_ChangedByResourceID;
+	HPMUniqueID m_ChangedByImpersonatedResourceID;
+	HPMUniqueID m_ProjectID;
+	HPMColumn m_Column;
+	HPMChangeCallbackData_ProjectColumnMetaDataChange()
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMChangeCallbackData_ProjectColumnMetaDataChange(HPMChangeCallbackData_ProjectColumnMetaDataChange const &_Right)
+		: m_bChangeInitiatedFromThisSession(_Right.m_bChangeInitiatedFromThisSession)
+		, m_ChangedByResourceID(_Right.m_ChangedByResourceID)
+		, m_ChangedByImpersonatedResourceID(_Right.m_ChangedByImpersonatedResourceID)
+		, m_ProjectID(_Right.m_ProjectID)
+		, m_Column(_Right.m_Column)
+	{
+	}
+	HPMChangeCallbackData_ProjectColumnMetaDataChange(HPMChangeCallbackData_ProjectColumnMetaDataChange &&_Right)
+		: m_bChangeInitiatedFromThisSession(std::move(_Right.m_bChangeInitiatedFromThisSession))
+		, m_ChangedByResourceID(std::move(_Right.m_ChangedByResourceID))
+		, m_ChangedByImpersonatedResourceID(std::move(_Right.m_ChangedByImpersonatedResourceID))
+		, m_ProjectID(std::move(_Right.m_ProjectID))
+		, m_Column(std::move(_Right.m_Column))
+	{
+	}
+	HPMChangeCallbackData_ProjectColumnMetaDataChange &operator =(HPMChangeCallbackData_ProjectColumnMetaDataChange const &_Right)
+	{
+		m_bChangeInitiatedFromThisSession = _Right.m_bChangeInitiatedFromThisSession;
+		m_ChangedByResourceID = _Right.m_ChangedByResourceID;
+		m_ChangedByImpersonatedResourceID = _Right.m_ChangedByImpersonatedResourceID;
+		m_ProjectID = _Right.m_ProjectID;
+		m_Column = _Right.m_Column;
+		return *this;
+	}
+	HPMChangeCallbackData_ProjectColumnMetaDataChange &operator =(HPMChangeCallbackData_ProjectColumnMetaDataChange &&_Right)
+	{
+		m_bChangeInitiatedFromThisSession = std::move(_Right.m_bChangeInitiatedFromThisSession);
+		m_ChangedByResourceID = std::move(_Right.m_ChangedByResourceID);
+		m_ChangedByImpersonatedResourceID = std::move(_Right.m_ChangedByImpersonatedResourceID);
+		m_ProjectID = std::move(_Right.m_ProjectID);
+		m_Column = std::move(_Right.m_Column);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMChangeCallbackData_ProjectColumnMetaDataChange &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession != _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID != _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID != _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID != _Right.m_ProjectID)
+			return false;
+		if (m_Column != _Right.m_Column)
+			return false;
+		return true;
+	}
+	bool operator != (const HPMChangeCallbackData_ProjectColumnMetaDataChange &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMChangeCallbackData_ProjectColumnMetaDataChange &_Right) const
+	{
+		if (m_bChangeInitiatedFromThisSession < _Right.m_bChangeInitiatedFromThisSession)
+			return true;
+		if (m_bChangeInitiatedFromThisSession > _Right.m_bChangeInitiatedFromThisSession)
+			return false;
+		if (m_ChangedByResourceID < _Right.m_ChangedByResourceID)
+			return true;
+		if (m_ChangedByResourceID > _Right.m_ChangedByResourceID)
+			return false;
+		if (m_ChangedByImpersonatedResourceID < _Right.m_ChangedByImpersonatedResourceID)
+			return true;
+		if (m_ChangedByImpersonatedResourceID > _Right.m_ChangedByImpersonatedResourceID)
+			return false;
+		if (m_ProjectID < _Right.m_ProjectID)
+			return true;
+		if (m_ProjectID > _Right.m_ProjectID)
+			return false;
+		if (m_Column < _Right.m_Column)
+			return true;
+		if (m_Column > _Right.m_Column)
+			return false;
+		return false;
+	}
+	bool operator > (const HPMChangeCallbackData_ProjectColumnMetaDataChange &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMChangeCallbackData_ProjectColumnMetaDataChange &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMChangeCallbackData_ProjectColumnMetaDataChange &_Right) const
 	{
 		return !(*this < _Right);
 	}
@@ -25454,6 +25807,145 @@ class HPMProjectCustomColumns
 	}
 };
 
+class HPMProjectCustomColumnChangeHash
+{
+	public:
+	HPMUInt32 m_HashFrom;
+	HPMUInt32 m_HashTo;
+	HPMProjectCustomColumnChangeHash()
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMProjectCustomColumnChangeHash(HPMProjectCustomColumnChangeHash const &_Right)
+		: m_HashFrom(_Right.m_HashFrom)
+		, m_HashTo(_Right.m_HashTo)
+	{
+	}
+	HPMProjectCustomColumnChangeHash(HPMProjectCustomColumnChangeHash &&_Right)
+		: m_HashFrom(std::move(_Right.m_HashFrom))
+		, m_HashTo(std::move(_Right.m_HashTo))
+	{
+	}
+	HPMProjectCustomColumnChangeHash &operator =(HPMProjectCustomColumnChangeHash const &_Right)
+	{
+		m_HashFrom = _Right.m_HashFrom;
+		m_HashTo = _Right.m_HashTo;
+		return *this;
+	}
+	HPMProjectCustomColumnChangeHash &operator =(HPMProjectCustomColumnChangeHash &&_Right)
+	{
+		m_HashFrom = std::move(_Right.m_HashFrom);
+		m_HashTo = std::move(_Right.m_HashTo);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMProjectCustomColumnChangeHash &_Right) const
+	{
+		if (m_HashFrom != _Right.m_HashFrom)
+			return false;
+		if (m_HashTo != _Right.m_HashTo)
+			return false;
+		return true;
+	}
+	bool operator != (const HPMProjectCustomColumnChangeHash &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMProjectCustomColumnChangeHash &_Right) const
+	{
+		if (m_HashFrom < _Right.m_HashFrom)
+			return true;
+		if (m_HashFrom > _Right.m_HashFrom)
+			return false;
+		if (m_HashTo < _Right.m_HashTo)
+			return true;
+		if (m_HashTo > _Right.m_HashTo)
+			return false;
+		return false;
+	}
+	bool operator > (const HPMProjectCustomColumnChangeHash &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMProjectCustomColumnChangeHash &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMProjectCustomColumnChangeHash &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
+class HPMProjectCustomColumnChangeHashes
+{
+	public:
+	std::vector<HPMProjectCustomColumnChangeHash> m_HashChanges;
+	HPMProjectCustomColumnChangeHashes()
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMProjectCustomColumnChangeHashes(HPMProjectCustomColumnChangeHashes const &_Right)
+		: m_HashChanges(_Right.m_HashChanges)
+	{
+	}
+	HPMProjectCustomColumnChangeHashes(HPMProjectCustomColumnChangeHashes &&_Right)
+		: m_HashChanges(std::move(_Right.m_HashChanges))
+	{
+	}
+	HPMProjectCustomColumnChangeHashes &operator =(HPMProjectCustomColumnChangeHashes const &_Right)
+	{
+		m_HashChanges = _Right.m_HashChanges;
+		return *this;
+	}
+	HPMProjectCustomColumnChangeHashes &operator =(HPMProjectCustomColumnChangeHashes &&_Right)
+	{
+		m_HashChanges = std::move(_Right.m_HashChanges);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMProjectCustomColumnChangeHashes &_Right) const
+	{
+		if (m_HashChanges.size() != _Right.m_HashChanges.size())
+			return false;
+		for (size_t i = 0; i < m_HashChanges.size(); ++i)
+			if (m_HashChanges[i] != _Right.m_HashChanges[i])
+				return false;
+		return true;
+	}
+	bool operator != (const HPMProjectCustomColumnChangeHashes &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMProjectCustomColumnChangeHashes &_Right) const
+	{
+		if (m_HashChanges.size() < _Right.m_HashChanges.size())
+			return true;
+		if (m_HashChanges.size() > _Right.m_HashChanges.size())
+			return false;
+		for (size_t i = 0; i < m_HashChanges.size(); ++i)
+		{
+			if (m_HashChanges[i] < _Right.m_HashChanges[i])
+				return true;
+			if (m_HashChanges[i] > _Right.m_HashChanges[i])
+				return false;
+		}
+		return false;
+	}
+	bool operator > (const HPMProjectCustomColumnChangeHashes &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMProjectCustomColumnChangeHashes &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMProjectCustomColumnChangeHashes &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
 class HPMProjectCustomColumnAncestryEntry
 {
 	public:
@@ -28343,8 +28835,12 @@ class HPMProjectWorkflowEnumObjectProperties
 class HPMProjectViewPreset
 {
 	public:
+	HPMUniqueID m_ID;
+	HPMUniqueID m_LocalID;
+	HPMUniqueID m_CreatedBy;
+	std::vector<HPMResourceDefinition> m_ShareWithUsers;
+	std::vector<HPMResourceDefinition> m_ShareWithEditRights;
 	HPMString m_Name;
-	std::vector<HPMResourceDefinition> m_Resources;
 	std::vector<HPMColumn> m_Columns;
 	std::vector<HPMColumn> m_ColumnsOrder;
 	std::vector<HPMColumn> m_ItemSettingsColumns;
@@ -28358,8 +28854,12 @@ class HPMProjectViewPreset
 	}
 #ifdef DHansoftSDKSupportMoveSemantic
 	HPMProjectViewPreset(HPMProjectViewPreset const &_Right)
-		: m_Name(_Right.m_Name)
-		, m_Resources(_Right.m_Resources)
+		: m_ID(_Right.m_ID)
+		, m_LocalID(_Right.m_LocalID)
+		, m_CreatedBy(_Right.m_CreatedBy)
+		, m_ShareWithUsers(_Right.m_ShareWithUsers)
+		, m_ShareWithEditRights(_Right.m_ShareWithEditRights)
+		, m_Name(_Right.m_Name)
 		, m_Columns(_Right.m_Columns)
 		, m_ColumnsOrder(_Right.m_ColumnsOrder)
 		, m_ItemSettingsColumns(_Right.m_ItemSettingsColumns)
@@ -28370,8 +28870,12 @@ class HPMProjectViewPreset
 	{
 	}
 	HPMProjectViewPreset(HPMProjectViewPreset &&_Right)
-		: m_Name(std::move(_Right.m_Name))
-		, m_Resources(std::move(_Right.m_Resources))
+		: m_ID(std::move(_Right.m_ID))
+		, m_LocalID(std::move(_Right.m_LocalID))
+		, m_CreatedBy(std::move(_Right.m_CreatedBy))
+		, m_ShareWithUsers(std::move(_Right.m_ShareWithUsers))
+		, m_ShareWithEditRights(std::move(_Right.m_ShareWithEditRights))
+		, m_Name(std::move(_Right.m_Name))
 		, m_Columns(std::move(_Right.m_Columns))
 		, m_ColumnsOrder(std::move(_Right.m_ColumnsOrder))
 		, m_ItemSettingsColumns(std::move(_Right.m_ItemSettingsColumns))
@@ -28383,8 +28887,12 @@ class HPMProjectViewPreset
 	}
 	HPMProjectViewPreset &operator =(HPMProjectViewPreset const &_Right)
 	{
+		m_ID = _Right.m_ID;
+		m_LocalID = _Right.m_LocalID;
+		m_CreatedBy = _Right.m_CreatedBy;
+		m_ShareWithUsers = _Right.m_ShareWithUsers;
+		m_ShareWithEditRights = _Right.m_ShareWithEditRights;
 		m_Name = _Right.m_Name;
-		m_Resources = _Right.m_Resources;
 		m_Columns = _Right.m_Columns;
 		m_ColumnsOrder = _Right.m_ColumnsOrder;
 		m_ItemSettingsColumns = _Right.m_ItemSettingsColumns;
@@ -28396,8 +28904,12 @@ class HPMProjectViewPreset
 	}
 	HPMProjectViewPreset &operator =(HPMProjectViewPreset &&_Right)
 	{
+		m_ID = std::move(_Right.m_ID);
+		m_LocalID = std::move(_Right.m_LocalID);
+		m_CreatedBy = std::move(_Right.m_CreatedBy);
+		m_ShareWithUsers = std::move(_Right.m_ShareWithUsers);
+		m_ShareWithEditRights = std::move(_Right.m_ShareWithEditRights);
 		m_Name = std::move(_Right.m_Name);
-		m_Resources = std::move(_Right.m_Resources);
 		m_Columns = std::move(_Right.m_Columns);
 		m_ColumnsOrder = std::move(_Right.m_ColumnsOrder);
 		m_ItemSettingsColumns = std::move(_Right.m_ItemSettingsColumns);
@@ -28410,13 +28922,24 @@ class HPMProjectViewPreset
 #endif
 	bool operator == (const HPMProjectViewPreset &_Right) const
 	{
+		if (m_ID != _Right.m_ID)
+			return false;
+		if (m_LocalID != _Right.m_LocalID)
+			return false;
+		if (m_CreatedBy != _Right.m_CreatedBy)
+			return false;
+		if (m_ShareWithUsers.size() != _Right.m_ShareWithUsers.size())
+			return false;
+		for (size_t i = 0; i < m_ShareWithUsers.size(); ++i)
+			if (m_ShareWithUsers[i] != _Right.m_ShareWithUsers[i])
+				return false;
+		if (m_ShareWithEditRights.size() != _Right.m_ShareWithEditRights.size())
+			return false;
+		for (size_t i = 0; i < m_ShareWithEditRights.size(); ++i)
+			if (m_ShareWithEditRights[i] != _Right.m_ShareWithEditRights[i])
+				return false;
 		if (m_Name != _Right.m_Name)
 			return false;
-		if (m_Resources.size() != _Right.m_Resources.size())
-			return false;
-		for (size_t i = 0; i < m_Resources.size(); ++i)
-			if (m_Resources[i] != _Right.m_Resources[i])
-				return false;
 		if (m_Columns.size() != _Right.m_Columns.size())
 			return false;
 		for (size_t i = 0; i < m_Columns.size(); ++i)
@@ -28457,21 +28980,44 @@ class HPMProjectViewPreset
 	}
 	bool operator < (const HPMProjectViewPreset &_Right) const
 	{
+		if (m_ID < _Right.m_ID)
+			return true;
+		if (m_ID > _Right.m_ID)
+			return false;
+		if (m_LocalID < _Right.m_LocalID)
+			return true;
+		if (m_LocalID > _Right.m_LocalID)
+			return false;
+		if (m_CreatedBy < _Right.m_CreatedBy)
+			return true;
+		if (m_CreatedBy > _Right.m_CreatedBy)
+			return false;
+		if (m_ShareWithUsers.size() < _Right.m_ShareWithUsers.size())
+			return true;
+		if (m_ShareWithUsers.size() > _Right.m_ShareWithUsers.size())
+			return false;
+		for (size_t i = 0; i < m_ShareWithUsers.size(); ++i)
+		{
+			if (m_ShareWithUsers[i] < _Right.m_ShareWithUsers[i])
+				return true;
+			if (m_ShareWithUsers[i] > _Right.m_ShareWithUsers[i])
+				return false;
+		}
+		if (m_ShareWithEditRights.size() < _Right.m_ShareWithEditRights.size())
+			return true;
+		if (m_ShareWithEditRights.size() > _Right.m_ShareWithEditRights.size())
+			return false;
+		for (size_t i = 0; i < m_ShareWithEditRights.size(); ++i)
+		{
+			if (m_ShareWithEditRights[i] < _Right.m_ShareWithEditRights[i])
+				return true;
+			if (m_ShareWithEditRights[i] > _Right.m_ShareWithEditRights[i])
+				return false;
+		}
 		if (m_Name < _Right.m_Name)
 			return true;
 		if (m_Name > _Right.m_Name)
 			return false;
-		if (m_Resources.size() < _Right.m_Resources.size())
-			return true;
-		if (m_Resources.size() > _Right.m_Resources.size())
-			return false;
-		for (size_t i = 0; i < m_Resources.size(); ++i)
-		{
-			if (m_Resources[i] < _Right.m_Resources[i])
-				return true;
-			if (m_Resources[i] > _Right.m_Resources[i])
-				return false;
-		}
 		if (m_Columns.size() < _Right.m_Columns.size())
 			return true;
 		if (m_Columns.size() > _Right.m_Columns.size())
@@ -28622,6 +29168,99 @@ class HPMProjectViewPresets
 		return !(_Right < *this);
 	}
 	bool operator >= (const HPMProjectViewPresets &_Right) const
+	{
+		return !(*this < _Right);
+	}
+};
+
+class HPMProjectColumnMetaData
+{
+	public:
+	HPMString m_DetailedDescription;
+	HPMVariantData m_DefaultValue;
+	HPMResourceDefinitionList m_EditableBy;
+	EHPMProjectColumnMetaDataFlag m_Flags;
+	HPMProjectColumnMetaData()
+		: m_Flags(EHPMProjectColumnMetaDataFlag_None)
+	{
+	}
+#ifdef DHansoftSDKSupportMoveSemantic
+	HPMProjectColumnMetaData(HPMProjectColumnMetaData const &_Right)
+		: m_DetailedDescription(_Right.m_DetailedDescription)
+		, m_DefaultValue(_Right.m_DefaultValue)
+		, m_EditableBy(_Right.m_EditableBy)
+		, m_Flags(_Right.m_Flags)
+	{
+	}
+	HPMProjectColumnMetaData(HPMProjectColumnMetaData &&_Right)
+		: m_DetailedDescription(std::move(_Right.m_DetailedDescription))
+		, m_DefaultValue(std::move(_Right.m_DefaultValue))
+		, m_EditableBy(std::move(_Right.m_EditableBy))
+		, m_Flags(std::move(_Right.m_Flags))
+	{
+	}
+	HPMProjectColumnMetaData &operator =(HPMProjectColumnMetaData const &_Right)
+	{
+		m_DetailedDescription = _Right.m_DetailedDescription;
+		m_DefaultValue = _Right.m_DefaultValue;
+		m_EditableBy = _Right.m_EditableBy;
+		m_Flags = _Right.m_Flags;
+		return *this;
+	}
+	HPMProjectColumnMetaData &operator =(HPMProjectColumnMetaData &&_Right)
+	{
+		m_DetailedDescription = std::move(_Right.m_DetailedDescription);
+		m_DefaultValue = std::move(_Right.m_DefaultValue);
+		m_EditableBy = std::move(_Right.m_EditableBy);
+		m_Flags = std::move(_Right.m_Flags);
+		return *this;
+	}
+#endif
+	bool operator == (const HPMProjectColumnMetaData &_Right) const
+	{
+		if (m_DetailedDescription != _Right.m_DetailedDescription)
+			return false;
+		if (m_DefaultValue != _Right.m_DefaultValue)
+			return false;
+		if (m_EditableBy != _Right.m_EditableBy)
+			return false;
+		if (m_Flags != _Right.m_Flags)
+			return false;
+		return true;
+	}
+	bool operator != (const HPMProjectColumnMetaData &_Right) const
+	{
+		return !(*this == _Right);
+	}
+	bool operator < (const HPMProjectColumnMetaData &_Right) const
+	{
+		if (m_DetailedDescription < _Right.m_DetailedDescription)
+			return true;
+		if (m_DetailedDescription > _Right.m_DetailedDescription)
+			return false;
+		if (m_DefaultValue < _Right.m_DefaultValue)
+			return true;
+		if (m_DefaultValue > _Right.m_DefaultValue)
+			return false;
+		if (m_EditableBy < _Right.m_EditableBy)
+			return true;
+		if (m_EditableBy > _Right.m_EditableBy)
+			return false;
+		if (m_Flags < _Right.m_Flags)
+			return true;
+		if (m_Flags > _Right.m_Flags)
+			return false;
+		return false;
+	}
+	bool operator > (const HPMProjectColumnMetaData &_Right) const
+	{
+		return _Right < *this;
+	}
+	bool operator <= (const HPMProjectColumnMetaData &_Right) const
+	{
+		return !(_Right < *this);
+	}
+	bool operator >= (const HPMProjectColumnMetaData &_Right) const
 	{
 		return !(*this < _Right);
 	}
@@ -36613,7 +37252,7 @@ class HPMDataHistory
 #endif
 	bool operator == (const HPMDataHistory &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -36640,7 +37279,7 @@ class HPMDataHistory
 	}
 	bool operator < (const HPMDataHistory &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -36956,7 +37595,7 @@ class HPMSessionLock
 #endif
 	bool operator == (const HPMSessionLock &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -36972,7 +37611,7 @@ class HPMSessionLock
 	}
 	bool operator < (const HPMSessionLock &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())
@@ -37748,7 +38387,7 @@ class HPMNotificationSubscription
 #endif
 	bool operator == (const HPMNotificationSubscription &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() != _Right.GetOriginalObject())
@@ -37764,7 +38403,7 @@ class HPMNotificationSubscription
 	}
 	bool operator < (const HPMNotificationSubscription &_Right) const
 	{
-		int Return = m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject);
+		int Return = (m_RefOrigObject.m_pRef && _Right.m_RefOrigObject.m_pRef) ? m_RefOrigObject.m_pRef->Compare(_Right.m_RefOrigObject.m_pRef->m_pObject) : -2;
 		if (Return == -2)
 		{
 			if (GetOriginalObject() < _Right.GetOriginalObject())

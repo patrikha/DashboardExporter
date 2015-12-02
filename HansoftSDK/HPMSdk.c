@@ -121,10 +121,7 @@ static char const*g_HPMExportedFunctions[] = {
 	"HPMSdk_ResourceSetLastUsedLanguage",
 	"HPMSdk_ResourceGetLastUsedLanguage",
 	"HPMSdk_ResourceGetEffectiveLanguage",
-	"HPMSdk_ResourceGetDeletedDate",
-	"HPMSdk_ResourceGetUndeletedDate",
 	"HPMSdk_ResourceTimesheetPeriodDataDelete",
-	"HPMSdk_ResourceUtilCanBeDeleted",
 	"HPMSdk_ResourceUtilExpandResources",
 
 	"HPMSdk_ResourceSetChatOnlineStatus",
@@ -141,10 +138,8 @@ static char const*g_HPMExportedFunctions[] = {
 
 	"HPMSdk_ResourceGetDashboardPage",
 
-#if defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)
 	"HPMSdk_ResourceReplaceGuestResourceWithHomeResource",
 	"HPMSdk_ResourceMakeGuestResourceAHomeResource",
-#endif
 
 	"HPMSdk_TimesheetRowSetActivityID",
 	"HPMSdk_TimesheetRowSetProjectID",
@@ -200,8 +195,6 @@ static char const*g_HPMExportedFunctions[] = {
 	"HPMSdk_ProjectCustomColumnsGet",
 	"HPMSdk_ProjectCustomColumnsSet",
 	"HPMSdk_ProjectCustomColumnsCreate",
-	"HPMSdk_ProjectCustomColumnsDeleteTaskData",
-	"HPMSdk_ProjectCustomColumnsRenameTaskData",
 	"HPMSdk_ProjectGetDefaultActivatedColumns",
 	"HPMSdk_ProjectSetDefaultActivatedColumns",
 	"HPMSdk_ProjectOpenBacklogProject",
@@ -254,7 +247,6 @@ static char const*g_HPMExportedFunctions[] = {
 	"HPMSdk_ProjectGetCalendarDayInfo",
 
 	"HPMSdk_ProjectGetViewPresets",
-	"HPMSdk_ProjectSetViewPresets",
 
 	"HPMSdk_ProjectSetTimesheetLock",
 
@@ -265,6 +257,13 @@ static char const*g_HPMExportedFunctions[] = {
 	"HPMSdk_ProjectGetDefaultQAWorkflow",
 	"HPMSdk_ProjectGetConvertedQAWorkflow",
 
+	"HPMSdk_ProjectCreateViewPreset",
+	"HPMSdk_ProjectChangeViewPreset",
+	"HPMSdk_ProjectDeleteViewPreset",
+
+	"HPMSdk_ProjectGetColumnMetaData",
+	"HPMSdk_ProjectSetColumnMetaData",
+	
 	"HPMSdk_TaskCreateUnified",
 	"HPMSdk_TaskMoveProject",
 	"HPMSdk_TaskDelete",
@@ -554,6 +553,8 @@ static char const*g_HPMExportedFunctions[] = {
 	"HPMSdk_VariantDecode_HPMUntranslatedString",
 	"HPMSdk_VariantDecode_HPMBinaryBuffer",
 	"HPMSdk_VariantDecode_ProjectBugReportResources",
+	"HPMSdk_VariantDecode_HPMProjectColumnMetaData",
+	"HPMSdk_VariantDecode_HPMProjectViewPreset",
 
 	"HPMSdk_VariantEncode_HPMInt32",
 	"HPMSdk_VariantEncode_HPMUInt32",
@@ -659,7 +660,6 @@ static char const*g_HPMExportedFunctions[] = {
 	"HPMSdk_UtilGetColumnData",
 	"HPMSdk_LocalizationGetLanguages",
 	"HPMSdk_LocalizationGetLanguageName",
-	"HPMSdk_UtilGetResourceUndeleteTimeOut",
 	"HPMSdk_UtilGetWorkflowObjectName",
 	"HPMSdk_UtilGetWorkflowObjectIDFromName",
 	"HPMSdk_UtilGetWorkflowName",

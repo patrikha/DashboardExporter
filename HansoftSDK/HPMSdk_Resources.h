@@ -125,7 +125,7 @@ enum EHPMSDKSyncMethod
 enum EHPMResourceGlobalSettingsFlag
 {
 	EHPMResourceGlobalSettingsFlag_None = 0,
-	EHPMResourceGlobalSettingsFlag_CopyResourceAndMiscOnTaskInsert = 1 << 0,				// When the resource inserts a task resource assignment, duration and budgeted work should be inherited for the previously selected activity.
+	EHPMResourceGlobalSettingsFlag_CopyMiscOnTaskInsert = 1 << 0,							// When the resource inserts a task, duration and budgeted work should be inherited from the previously selected activity.
 	EHPMResourceGlobalSettingsFlag_UnlockByDefault = 1 << 1,								// When a new task is created by the resource it should be unlocked.
 	EHPMResourceGlobalSettingsFlag_ShowMilestoneLinksOnTasks = 1 << 2,						// Links should be shown between milestones and items in the timeline view.
 	EHPMResourceGlobalSettingsFlag_InstantlyEditCreatedTasks = 1 << 3,						// When a new task is created name edit mode should be activated.
@@ -974,44 +974,6 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionResourceGetEffectiveLangu
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
 |																									|
-|	Description:		Gets the date a resource was deleted.										|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	See Also:			@{HPMSdkFunctions}									 						|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						ResourceGetDeletedDate														|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionResourceGetDeletedDate)(	void *_pSession,			// [in] A connected session. See @{SessionOpen}.
-																				HPMUniqueID _ResourceID,	// [in] The resource to get the deleted date for.
-																				HPMUInt64 *_pDeletedDate	// [out] Pointer to a variable representing the returned data. This is the number of micro seconds since 1970 UTC.
-																			);
-
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
-|	Description:		Gets the date a resource was undeleted.										|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	See Also:			@{HPMSdkFunctions}, @{UtilGetResourceUndeleteTimeOut} 						|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						ResourceGetUndeletedDate													|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionResourceGetUndeletedDate)(	void *_pSession,			// [in] A connected session. See @{SessionOpen}.
-																					HPMUniqueID _ResourceID,	// [in] The resource to get the undeleted date for.
-																					HPMUInt64 *_pUndeletedDate	// [out] Pointer to a variable representing the returned data. This is the number of micro seconds since 1970 UTC.
-																				);
-
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
 |	Description:		Deletes timesheet data up to an end date.									|
 |																									|
 |	Return Value:		Returns an error code. See @{EHPMError}.									|
@@ -1027,29 +989,6 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionResourceTimesheetPeriodDa
 																							HPMUniqueID _ResourceID,	// [in] The resource to delete timesheet data for.
 																							HPMUInt64 _EndDate			// [in] The end date up to which timesheet data will be deleted. Expressed as the number of micro seconds since 1970 UTC.
 																							);
-
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
-|	Description:		Checks if a resource can be deleted. Returns 1 if the resource can be		|
-|						deleted, 0 otherwise.														|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	Comments:			A deleted resource has a timeout period before it can be undeleted. You		|
-|						can get the timeout period with @{UtilGetResourceUndeleteTimeOut}.			|
-|																									|
-|	See Also:			@{HPMSdkFunctions}, @{UtilGetResourceUndeleteTimeOut}						|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						ResourceUtilCanBeDeleted													|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionResourceUtilCanBeDeleted)(	void *_pSession,			// [in] A connected session. See @{SessionOpen}.
-																					HPMUniqueID _ResourceID,	// [in] The resource to check if it can be deleted.
-																					HPMInt32 *_pReturn			// [out,type=bool] Returns 1 if the identifer con be deleted 0 otherwise.
-																				);
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
@@ -1334,7 +1273,6 @@ typedef HPMError(DHPMSdkCallingConvention *HPMFunctionResourceGetDashboardPage)(
 																				);
 
 
-#if defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
 |																									|
@@ -1373,5 +1311,4 @@ typedef HPMError(DHPMSdkCallingConvention *HPMFunctionResourceMakeGuestResourceA
 																								HPMChar const* _pName,			// [in]	Name of the created home user. Usually best to use the name of the remote user.
 																								HPMChar const* _pNewPassword	// [in]	New password to set on the created home user.
 																							);
-#endif
 #endif

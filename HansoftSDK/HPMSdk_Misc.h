@@ -201,6 +201,10 @@ enum EHPMDataHistoryOrigin
 	EHPMDataHistoryOrigin_CommandChangeField_IsEpic,
 	EHPMDataHistoryOrigin_BIHistory,
 	EHPMDataHistoryOrigin_ProjectSetDefaultQAWorkflow,
+	EHPMDataHistoryOrigin_ProjectDeleteUserViewPreset,
+	EHPMDataHistoryOrigin_ProjectChangeUserViewPreset,
+	EHPMDataHistoryOrigin_ProjectCreateUserViewPreset,
+	EHPMDataHistoryOrigin_ProjectSetColumnMetaData,
 };
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
@@ -959,6 +963,9 @@ typedef struct HPMDataHistoryGetHistoryParameters
 |		EHPMProjectField_UsersCanReportNewBugs:					Use @{VariantDecode_ProjectBugReportResources}.						|
 |		EHPMProjectField_DefaultQAWorkflow:						Use @{VariantDecode_HPMUniqueID}.									|
 |		EHPMProjectField_ConvertedQAWorkflow:					Use @{VariantDecode_HPMUniqueID}.									|
+|		EHPMProjectField_DefaultColumnMetaData:					Use @{VariantDecode_HPMProjectColumnMetaData}.						|
+|		EHPMProjectField_CustomColumnMetaData:					Use @{VariantDecode_HPMProjectColumnMetaData}.						|
+|		EHPMProjectField_ViewPresets:							Use @{VariantDecode_HPMProjectViewPreset}.							|
 |																																	|
 |	Comments:			Note that there can be several EHPMDataHistoryEntryType_TaskCreated entries, since a task can be			|
 |						recreated by a cut and paste or from history. The current history is often what you are looking for and		|
@@ -3236,8 +3243,7 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionVariantDecode_HPMBinaryBu
 |	Comments:			The returned object must be freed with @{ObjectFree} or a memory			|
 |						leak will result.															|
 |																									|
-|	See Also:			@{HPMSdkFunctions}, @{ObjectFree}, @{HPMVariantData},						|
-|						@{HPMBinaryBuffer}															|
+|	See Also:			@{HPMSdkFunctions}, @{ObjectFree}, @{HPMVariantData}						|
 |																									|
 |	Location:			Function Pointers															|
 |																									|
@@ -3248,6 +3254,53 @@ typedef HPMError(DHPMSdkCallingConvention *HPMFunctionVariantDecode_ProjectBugRe
 																								HPMVariantData const *_pVariantData,		// [in] Pointer to the variant data to decode. See @{HPMVariantData}.
 																								HPMResourceDefinitionList const **_pData	// [out] Pointer to a pointer of a @{HPMResourceDefinitionList} object, representing the returned data.
 																								);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Get variant data as @{HPMProjectColumnMetaData}.							|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}. If the data cannot be converted	|
+|						to the requested format @{EHPMError}_ConversionNotSupported is returned.	|
+|																									|
+|	Comments:			The returned object must be freed with @{ObjectFree} or a memory			|
+|						leak will result.															|
+|																									|
+|	See Also:			@{HPMSdkFunctions}, @{ObjectFree}, @{HPMVariantData},						|
+|						@{HPMProjectColumnMetaData}													|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						VariantDecode_HPMProjectColumnMetaData										|
+\*_________________________________________________________________________________________________*/
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionVariantDecode_HPMProjectColumnMetaData)(void *_pSession,									// [in] A connected session. See @{SessionOpen}.
+																									 const HPMVariantData *_pVariantData,		// [in] Pointer to the variant data to decode. See @{HPMVariantData}.
+																									 const HPMProjectColumnMetaData **_pData	// [out] Pointer to a pointer of a @{HPMProjectColumnMetaData} object, representing the returned data.
+																									);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Get variant data as @{HPMProjectViewPreset}.								|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}. If the data cannot be converted	|
+|						to the requested format @{EHPMError}_ConversionNotSupported is returned.	|
+|																									|
+|	Comments:			The returned object must be freed with @{ObjectFree} or a memory			|
+|						leak will result.															|
+|																									|
+|	See Also:			@{HPMSdkFunctions}, @{ObjectFree}, @{HPMVariantData}						|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						VariantDecode_HPMProjectViewPreset											|
+\*_________________________________________________________________________________________________*/
+typedef HPMError(DHPMSdkCallingConvention *HPMFunctionVariantDecode_HPMProjectViewPreset)(	void *_pSession,							// [in] A connected session. See @{SessionOpen}.
+																							HPMVariantData const *_pVariantData,		// [in] Pointer to the variant data to decode. See @{HPMVariantData}.
+																							HPMProjectViewPreset const **_pData			// [out] Pointer to a pointer of a @{HPMProjectViewPreset} object, representing the returned data.
+																						);
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
@@ -4229,27 +4282,6 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionUtilGetColumnData)(	void 
 																			HPMUInt32 _ColumnID,					// [in,type=EHPMProjectDefaultColumn] The column id of the column. Can be one of @{EHPMProjectDefaultColumn}.
 																			const HPMColumnData **_pColumnData		// [out] Pointer to a pointer of a @{HPMColumnData} object, representing the returned data.
 																		);
-
-
-
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
-|	Description:		Gets the timeout period between the time a resource was deleted and the		|
-|						time a resource can be undeleted again.										|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	See Also:			@{HPMSdkFunctions}, @{ResourceGetDeletedDate}, @{ResourceGetUndeletedDate}	|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						UtilGetResourceUndeleteTimeOut												|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionUtilGetResourceUndeleteTimeOut)(	void *_pSession,			// [in] A connected session. See @{SessionOpen}.
-																						HPMUInt64 *_pUndeletedDate	// [out] Pointer to a variable representing the returned data. The timeout period is given in microseconds.
-																						);
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|

@@ -180,10 +180,7 @@ typedef struct HPMSdkFunctions
 	HPMFunctionResourceSetLastUsedLanguage ResourceSetLastUsedLanguage;																	// Sets the last used language of a resource. See @{HPMFunctionResourceSetLastUsedLanguage}.
 	HPMFunctionResourceGetLastUsedLanguage ResourceGetLastUsedLanguage;																	// Gets the last used language of a resource. See @{HPMFunctionResourceGetLastUsedLanguage}.
 	HPMFunctionResourceGetEffectiveLanguage ResourceGetEffectiveLanguage;																// Gets the effective language of a resource. See @{HPMFunctionResourceGetEffectiveLanguage}.
-	HPMFunctionResourceGetDeletedDate ResourceGetDeletedDate;																			// Gets the date a resource was deleted. See @{HPMFunctionResourceGetDeletedDate}.
-	HPMFunctionResourceGetUndeletedDate ResourceGetUndeletedDate;																		// Gets the date a resource was undeleted. See @{HPMFunctionResourceGetUndeletedDate}.
 	HPMFunctionResourceTimesheetPeriodDataDelete ResourceTimesheetPeriodDataDelete;														// Deletes timesheet period data for a resource. See @{HPMFunctionResourceTimesheetPeriodDataDelete}.
-	HPMFunctionResourceUtilCanBeDeleted ResourceUtilCanBeDeleted;																		// Checks if a resource can be deleted. See @{HPMFunctionResourceUtilCanBeDeleted}.
 	HPMFunctionResourceUtilExpandResources ResourceUtilExpandResources;																	// Expands a resources list into a list of resources. See @{HPMFunctionResourceUtilExpandResources}.
 	
 	HPMFunctionResourceSetChatOnlineStatus ResourceSetChatOnlineStatus;																	// Sets the chat online status for the currently logged in SDK resource. See @{HPMFunctionResourceSetChatOnlineStatus}.
@@ -200,10 +197,8 @@ typedef struct HPMSdkFunctions
 
 	HPMFunctionResourceGetDashboardPage ResourceGetDashboardPage;																		// Gets the personal dashboard page for a resource. See @{HPMFunctionResourceGetDashboardPage}.
 
-#if defined(DHPMDocumentation) || (DHPMSdkTargetVersion >= 0x9002)
 	HPMFunctionResourceReplaceGuestResourceWithHomeResource ResourceReplaceGuestResourceWithHomeResource;								// Reploce remote guest share user with local user. See @{HPMFunctionResourceReplaceGuestResourceWithHomeResource}.
 	HPMFunctionResourceMakeGuestResourceAHomeResource ResourceMakeGuestResourceAHomeResource;											// Make remote guest share user a local user. See @{HPMFunctionResourceMakeGuestResourceAHomeResource}.
-#endif
 
 	HPMFunctionTimesheetRowSetActivityID TimesheetRowSetActivityID;																		// Sets the activity id for a timesheet row. See @{HPMFunctionTimesheetRowSetActivityID}.
 	HPMFunctionTimesheetRowSetProjectID TimesheetRowSetProjectID;																		// Sets the project id for a timesheet row. See @{HPMFunctionTimesheetRowSetProjectID}.
@@ -259,8 +254,6 @@ typedef struct HPMSdkFunctions
 	HPMFunctionProjectCustomColumnsGet ProjectCustomColumnsGet;																			// Gets custom columns in a project. See @{HPMFunctionProjectCustomColumnsGet}.
 	HPMFunctionProjectCustomColumnsSet ProjectCustomColumnsSet;																			// Sets custom columns in a project. See @{HPMFunctionProjectCustomColumnsSet}.
 	HPMFunctionProjectCustomColumnsCreate ProjectCustomColumnsCreate;																	// Creates a single custom column in project. See @{HPMFunctionProjectCustomColumnsCreate}.
-	HPMFunctionProjectCustomColumnsDeleteTaskData ProjectCustomColumnsDeleteTaskData;													// Deletes custom column data for the specified custom column in project. See @{HPMFunctionProjectCustomColumnsDeleteTaskData}.
-	HPMFunctionProjectCustomColumnsRenameTaskData ProjectCustomColumnsRenameTaskData;													// Renames custom column data for the specified custom columns in project. See @{HPMFunctionProjectCustomColumnsRenameTaskData}.
 	HPMFunctionProjectGetDefaultActivatedColumns ProjectGetDefaultActivatedColumns;														// Gets activated default columns in project. See @{HPMFunctionProjectGetDefaultActivatedColumns}.
 	HPMFunctionProjectSetDefaultActivatedColumns ProjectSetDefaultActivatedColumns;														// Sets activated default columns in project. See @{HPMFunctionProjectSetDefaultActivatedColumns}.
 	HPMFunctionProjectOpenBacklogProject ProjectOpenBacklogProject;																		// Opens backlog project. See @{HPMFunctionProjectOpenBacklogProject}.
@@ -313,8 +306,6 @@ typedef struct HPMSdkFunctions
 	HPMFunctionProjectGetCalendarDayInfo ProjectGetCalendarDayInfo;																		// Gets calendar info for a day in a project. See @{HPMFunctionProjectGetCalendarDayInfo}.
 
 	HPMFunctionProjectGetViewPresets ProjectGetViewPresets;																				// Gets view presets for a project. See @{HPMFunctionProjectGetViewPresets}.
-	HPMFunctionProjectSetViewPresets ProjectSetViewPresets;																				// Sets view presets for a project. See @{HPMFunctionProjectSetViewPresets}.
-
 	HPMFunctionProjectSetTimesheetLock ProjectSetTimesheetLock;																			// Sets the timesheet lock for a project. See @{HPMFunctionProjectSetTimesheetLock}.
 
 	HPMFunctionProjectDisplayUserMessage ProjectDisplayUserMessage;																		// Displays a message in the client if the specified user is logged in. See @{HPMFunctionProjectDisplayUserMessage}.
@@ -324,6 +315,13 @@ typedef struct HPMSdkFunctions
 	HPMFunctionProjectGetDefaultQAWorkflow ProjectGetDefaultQAWorkflow;																	// Gets the default QA workflow. See @{HPMFunctionProjectGetDefaultQAWorkflow}.
 	HPMFunctionProjectGetConvertedQAWorkflow ProjectGetConvertedQAWorkflow;																// Gets the current id of the old QA workflow. See @{HPMFunctionProjectGetConvertedQAWorkflow}.
 
+	HPMFunctionProjectCreateViewPreset ProjectCreateViewPreset;																			// Creates a view preset for a project. See @{HPMFunctionProjectCreateViewPreset}.
+	HPMFunctionProjectChangeViewPreset ProjectChangeViewPreset;																			// Changes a view preset for a project. See @{HPMFunctionProjectChangeViewPreset}.
+	HPMFunctionProjectDeleteViewPreset ProjectDeleteViewPreset;																			// Deletes a view preset for a project. See @{HPMFunctionProjectGetViewPresets}.
+
+	HPMFunctionProjectGetColumnMetaData ProjectGetColumnMetaData;																		// Get meta data for a column. See @{HPMFunctionProjectGetColumnMetaData}.
+	HPMFunctionProjectSetColumnMetaData ProjectSetColumnMetaData;																		// Set meta data for a column. See @{HPMFunctionProjectSetColumnMetaData}.
+	
 	HPMFunctionTaskCreateUnified TaskCreateUnified;																						// Creates tasks and proxies in a container. See @{HPMFunctionTaskCreateUnified}.
 	HPMFunctionTaskMoveProject TaskMoveProject;																							// Moves tasks into a new container. See @{HPMFunctionTaskMoveProject}.
 	HPMFunctionTaskDelete TaskDelete;																									// Deletes a task in a container. See @{HPMFunctionTaskDelete}.
@@ -612,6 +610,8 @@ typedef struct HPMSdkFunctions
 	HPMFunctionVariantDecode_HPMUntranslatedString VariantDecode_HPMUntranslatedString;													// Decodes variant data to the HPMUntranslatedString format. See @{HPMFunctionVariantDecode_HPMUntranslatedString}.
 	HPMFunctionVariantDecode_HPMBinaryBuffer VariantDecode_HPMBinaryBuffer;																// Decodes variant data to the HPMBinaryBuffer format. See @{HPMFunctionVariantDecode_HPMBinaryBuffer}.
 	HPMFunctionVariantDecode_ProjectBugReportResources VariantDecode_ProjectBugReportResources;											// Decodes variant data to the HPMResourceDefinitionList format. See @{HPMFunctionVariantDecode_ProjectBugReportResources}.
+	HPMFunctionVariantDecode_HPMProjectColumnMetaData VariantDecode_HPMProjectColumnMetaData;											// Decodes variant data to the HPMProjectColumnMetaData format. See @{HPMFunctionVariantDecode_HPMProjectColumnMetaData}.
+	HPMFunctionVariantDecode_HPMProjectViewPreset VariantDecode_HPMProjectViewPreset;													// Decodes variant data to the HPMProjectViewPreset format. See @{HPMFunctionVariantDecode_HPMProjectViewPreset}.
 
 	HPMFunctionVariantEncode_HPMInt32 VariantEncode_HPMInt32;																			// Encodes HPMInt32 data to a variant format. See @{HPMFunctionVariantEncode_HPMInt32}.
 	HPMFunctionVariantEncode_HPMUInt32 VariantEncode_HPMUInt32;																			// Encodes HPMUInt32 data to a variant format. See @{HPMFunctionVariantEncode_HPMUInt32}.
@@ -719,7 +719,6 @@ typedef struct HPMSdkFunctions
 	HPMFunctionUtilGetColumnData UtilGetColumnData;																						// Gets the possible data values for a list column. See @{HPMFunctionUtilGetColumnData}.
 	HPMFunctionLocalizationGetLanguages LocalizationGetLanguages;																		// Gets all the languages that are available to the application. See @{HPMFunctionLocalizationGetLanguages}.
 	HPMFunctionLocalizationGetLanguageName LocalizationGetLanguageName;																	// Gets the string representation of a language. See @{HPMFunctionLocalizationGetLanguageName}.
-	HPMFunctionUtilGetResourceUndeleteTimeOut UtilGetResourceUndeleteTimeOut;															// Gets the time that needs to pass before a resource can be undeleted. See @{HPMFunctionUtilGetResourceUndeleteTimeOut}.
 	HPMFunctionUtilGetWorkflowObjectName UtilGetWorkflowObjectName;																		// Gets the name of a pipeline, workflow status or transition etc. See @{HPMFunctionUtilGetWorkflowObjectName}.
 	HPMFunctionUtilGetWorkflowObjectIDFromName UtilGetWorkflowObjectIDFromName;															// Gets the object ID of a pipeline, workflow status or transition etc. See @{HPMFunctionUtilGetWorkflowObjectIDFromName}.
 	HPMFunctionUtilGetWorkflowName UtilGetWorkflowName;																					// Gets the name of a pipeline or workflow. See @{HPMFunctionUtilGetWorkflowName}.

@@ -174,7 +174,6 @@ enum EHPMChangeCallbackOperation
 	// Version 6.5 Changes
 	EHPMChangeCallbackOperation_ResourcePreferredLanguageChange,				// The preferred language of a resource changed. {HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ResourcePreferredLanguageChange}.
 	EHPMChangeCallbackOperation_ResourceLastUsedLanguageChange,					// The last used language of a resource changed. {HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ResourceLastUsedLanguageChange}.
-	EHPMChangeCallbackOperation_ProjectViewPresetsChange,						// The view presets of a project changed. {HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectViewPresetsChange}.
 	EHPMChangeCallbackOperation_ProjectViewPresetsApplied,						// The view presets have been applied. {HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectViewPresetsApplied}.
 	EHPMChangeCallbackOperation_ResourceTimesheetPeriodDataDelete,				// The timesheets for a period were deleted. {HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ResourceTimesheetPeriodDataDelete}.
 	EHPMChangeCallbackOperation_ProjectTimesheetLockChange,						// The timesheet lock for a project changed. {HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectTimesheetLockChange}.
@@ -237,6 +236,11 @@ enum EHPMChangeCallbackOperation
 	// Version 9.0 Changes
 	EHPMChangeCallbackOperation_SharesUpdate,									// Shares have been updated. @{HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_SharesUpdate}.
 
+	// Version 9.1 Changes
+	EHPMChangeCallbackOperation_ProjectViewPresetCreate,						// A user view preset was created. @{HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectViewPresetCreate}.
+	EHPMChangeCallbackOperation_ProjectViewPresetChange,						// A user view preset was changed. @{HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectViewPresetChange}.
+	EHPMChangeCallbackOperation_ProjectViewPresetDelete,						// A user view preset was deleted. @{HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectViewPresetDelete}.
+	EHPMChangeCallbackOperation_ProjectColumnMetaDataChange,					// The column meta data a project column changed. @{HPMChangeCallbackInfo}::m_pCallbackData should be cast to @{HPMChangeCallbackData_ProjectColumnMetaDataChange}.
 };
 
 
@@ -769,28 +773,6 @@ typedef struct HPMChangeCallbackData_ResourceGroupsChange
 |																									|
 |	Description:		Callback data type for @{HPMChangeCallbackInfo}::m_pCallbackData			|
 |						when @{HPMChangeCallbackInfo}::m_Operation is set to						|
-|						@{EHPMChangeCallbackOperation}_ProjectViewPresetsChange.					|
-|																									|
-|	See Also:			@{EHPMChangeCallbackOperation}, @{HPMChangeCallbackInfo}					|
-|																									|
-|	Location:			Structures																	|
-|																									|
-|	Index:				!name																		|
-\*_________________________________________________________________________________________________*/
-typedef struct HPMChangeCallbackData_ProjectViewPresetsChange
-{
-	HPMInt32 m_bChangeInitiatedFromThisSession;		// Set to 1 if this change in the database was the result of an operation that was initiated from this session.
-	HPMUniqueID m_ChangedByResourceID;				// The unique identifier of the resource that initiated the change.
-	HPMUniqueID m_ChangedByImpersonatedResourceID;	// The unique identifier of the impersonated resource that initiated the change.
-	HPMUniqueID m_ProjectID;						// The unique identifier of the project the presets changed in.
-	HPMUniqueID m_ResourceID;						// The unique identifier of the resource that changed the presets.
-} HPMChangeCallbackData_ProjectViewPresetsChange;
-
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Class:																							|
-|																									|
-|	Description:		Callback data type for @{HPMChangeCallbackInfo}::m_pCallbackData			|
-|						when @{HPMChangeCallbackInfo}::m_Operation is set to						|
 |						@{EHPMChangeCallbackOperation}_ProjectViewPresetsApplied.					|
 |																									|
 |	See Also:			@{EHPMChangeCallbackOperation}, @{HPMChangeCallbackInfo}					|
@@ -807,6 +789,76 @@ typedef struct HPMChangeCallbackData_ProjectViewPresetsApplied
 	HPMUniqueID m_ResourceID;						// The unique identifier of the resource that the presets have been applied for.
 	HPMUniqueID m_ProjectID;						// The unique identifier of the project the presets have been applied in.
 } HPMChangeCallbackData_ProjectViewPresetsApplied;
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
+|	Description:		Callback data type for @{HPMChangeCallbackInfo}::m_pCallbackData			|
+|						when @{HPMChangeCallbackInfo}::m_Operation is set to						|
+|						@{EHPMChangeCallbackOperation}_ProjectViewPresetCreate.						|
+|																									|
+|	See Also:			@{EHPMChangeCallbackOperation}, @{HPMChangeCallbackInfo}					|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMChangeCallbackData_ProjectViewPresetCreate
+{
+	HPMInt32 m_bChangeInitiatedFromThisSession;		// Set to 1 if this change in the database was the result of an operation that was initiated from this session.
+	HPMUniqueID m_ChangedByResourceID;				// The unique identifier of the resource that initiated the change.
+	HPMUniqueID m_ChangedByImpersonatedResourceID;	// The unique identifier of the impersonated resource that initiated the change.
+	HPMUniqueID m_ProjectID;						// The unique identifier of the project the preset was created in.
+	HPMUniqueID m_ResourceID;						// The unique identifier of the resource that created the preset.
+	HPMUniqueID m_PresetID;							// The unique identifier of created preset.
+	HPMUniqueID m_LocalID;							// The local identifier of created preset.
+} HPMChangeCallbackData_ProjectViewPresetCreate;
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
+|	Description:		Callback data type for @{HPMChangeCallbackInfo}::m_pCallbackData			|
+|						when @{HPMChangeCallbackInfo}::m_Operation is set to						|
+|						@{EHPMChangeCallbackOperation}_ProjectViewPresetChange.						|
+|																									|
+|	See Also:			@{EHPMChangeCallbackOperation}, @{HPMChangeCallbackInfo}					|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMChangeCallbackData_ProjectViewPresetChange
+{
+	HPMInt32 m_bChangeInitiatedFromThisSession;		// Set to 1 if this change in the database was the result of an operation that was initiated from this session.
+	HPMUniqueID m_ChangedByResourceID;				// The unique identifier of the resource that initiated the change.
+	HPMUniqueID m_ChangedByImpersonatedResourceID;	// The unique identifier of the impersonated resource that initiated the change.
+	HPMUniqueID m_ProjectID;						// The unique identifier of the project the preset changed in.
+	HPMUniqueID m_ResourceID;						// The unique identifier of the resource that changed the presets.
+	HPMUniqueID m_PresetID;							// The unique identifier of edited preset.
+} HPMChangeCallbackData_ProjectViewPresetChange;
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
+|	Description:		Callback data type for @{HPMChangeCallbackInfo}::m_pCallbackData			|
+|						when @{HPMChangeCallbackInfo}::m_Operation is set to						|
+|						@{EHPMChangeCallbackOperation}_ProjectViewPresetDelete.						|
+|																									|
+|	See Also:			@{EHPMChangeCallbackOperation}, @{HPMChangeCallbackInfo}					|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMChangeCallbackData_ProjectViewPresetDelete
+{
+	HPMInt32 m_bChangeInitiatedFromThisSession;		// Set to 1 if this change in the database was the result of an operation that was initiated from this session.
+	HPMUniqueID m_ChangedByResourceID;				// The unique identifier of the resource that initiated the change.
+	HPMUniqueID m_ChangedByImpersonatedResourceID;	// The unique identifier of the impersonated resource that initiated the change.
+	HPMUniqueID m_ProjectID;						// The unique identifier of the project the preset was deleted in.
+	HPMUniqueID m_ResourceID;						// The unique identifier of the resource that deleted the presets.
+	HPMUniqueID m_PresetID;							// The unique identifier of edited preset.
+} HPMChangeCallbackData_ProjectViewPresetDelete;
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Class:																							|
@@ -1239,6 +1291,28 @@ typedef struct HPMChangeCallbackData_ProjectStatisticsSettingsChange
 	HPMUniqueID m_ChangedByImpersonatedResourceID;	// The unique identifier of the impersonated resource that initiated the change.
 	HPMUniqueID m_ProjectID;						// The unique identifier of the project that had its statistics settings changed.
 } HPMChangeCallbackData_ProjectStatisticsSettingsChange;
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
+|	Description:		Callback data type for @{HPMChangeCallbackInfo}::m_pCallbackData			|
+|						when @{HPMChangeCallbackInfo}::m_Operation is set to						|
+|						@{EHPMChangeCallbackOperation}_ProjectColumnMetaDataChange.					|
+|																									|
+|	See Also:			@{EHPMChangeCallbackOperation}, @{HPMChangeCallbackInfo}					|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMChangeCallbackData_ProjectColumnMetaDataChange
+{
+	HPMInt32 m_bChangeInitiatedFromThisSession;		// Set to 1 if this change in the database was the result of an operation that was initiated from this session.
+	HPMUniqueID m_ChangedByResourceID;				// The unique identifier of the resource that initiated the change.
+	HPMUniqueID m_ChangedByImpersonatedResourceID;	// The unique identifier of the impersonated resource that initiated the change.
+	HPMUniqueID m_ProjectID;						// The unique identifier of the project that had a column in it change meta data .
+	HPMColumn m_Column;								// The column for which meta data changed. See also @{HPMColumn}.
+} HPMChangeCallbackData_ProjectColumnMetaDataChange;
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Class:																							|

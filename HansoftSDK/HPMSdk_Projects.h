@@ -1,4 +1,4 @@
-﻿
+
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	File:			Hansoft Project Manager SDK projects										|
 |																								|
@@ -247,6 +247,10 @@ enum EHPMProjectField
 	EHPMProjectField_UsersCanReportNewBugs,					// The users that can report bugs.
 	EHPMProjectField_DefaultQAWorkflow,						// The default QA workflow.
 	EHPMProjectField_ConvertedQAWorkflow,					// The old converted QA workflow.
+	EHPMProjectField_NameSortValue,							// The sorting name of project.
+	EHPMProjectField_ViewPresets,							// User view presets.
+	EHPMProjectField_DefaultColumnMetaData,					// The meta data for a default column. @{HPMDataHistoryEntry}::m_FieldData is @{EHPMProjectDefaultColumn}
+	EHPMProjectField_CustomColumnMetaData,					// The meta data for a custom column. @{HPMDataHistoryEntry}::m_FieldData is custom column hash
 };
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
@@ -713,6 +717,7 @@ enum EHPMProjectPresetShowOptionFlag
 	EHPMProjectPresetShowOptionFlag_Archived = 1 << 12,									// Show archived items.
 	EHPMProjectPresetShowOptionFlag_FourWeeksScheduling = 1 << 13,						// Show only four weeks of scheduled tasks.
 	EHPMProjectPresetShowOptionFlag_ShowItemDetailsWindow = 1 << 14,					// Show item details window.
+	EHPMProjectPresetShowOptionFlag_ShowAbsolutePriority = 1 << 15,						// Show absolute priority in the schedule or backlog list view.
 };
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
@@ -735,8 +740,6 @@ enum EHPMProjectUserMessageType
 	EHPMProjectUserMessageType_Info,
 };
 
-
-
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Enum:																							|
 |																									|
@@ -757,6 +760,25 @@ enum EHPMProjectGetDefaultActivatedNonHidableColumnsFlag
 	EHPMProjectGetDefaultActivatedNonHidableColumnsFlag_ProjectMode = 1 << 2,	// Include columns from agile or scheduled mode depending what is configured as default for the project
 };
 
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Enum:																							|
+|																									|
+|	Description:		Flags for @{HPMProjectColumnMetaData}										|
+|																									|
+|	See Also:			@{HPMProjectColumnMetaData}													|
+|																									|
+|	Location:			Enumerations																|
+|																									|
+|	Index:				!name																		|
+|						!enums																		|
+\*_________________________________________________________________________________________________*/
+enum EHPMProjectColumnMetaDataFlag
+{
+	EHPMProjectColumnMetaDataFlag_None = 0,
+	EHPMProjectColumnMetaDataFlag_InheritIfNotEmpty = 1 << 0,				// Tasks created in the client will inherit if the tasks inherited from has a value
+	EHPMProjectColumnMetaDataFlag_InheritAlways = 1 << 1,					// Tasks created in the client will always inherit from the task inherited from
+	EHPMProjectColumnMetaDataFlag_InheritFromParent = 1 << 2,				// Tasks created in the client will inherit from the parent. If not set, the tasks will inherit from the previous task.
+};
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Class:																							|
@@ -928,12 +950,6 @@ typedef struct HPMProjectCustomColumnsColumn
 |	Comments:			The projects has a number of columns that is shown and a number that is		|
 |						hidden. Hidden columns still have their task data retained.					|
 |																									|
-|						When deleting a column you need to make sure to call						|
-|						@{ProjectCustomColumnsDeleteTaskData} for its column hash, otherwise the	|
-|						data will be left in the database. Similarly you need to call				|
-|						@{ProjectCustomColumnsRenameTaskData} when you rename or change the			|
-|						properties of a column.														|
-|																									|
 |						You should take care not to have the same column appear twice in either		|
 |						shown or hidden columns.													|
 |																									|
@@ -955,10 +971,45 @@ typedef struct HPMProjectCustomColumns
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Class:																							|
 |																									|
+|	Description:		Used for specifying a hash change in @{HPMProjectCustomColumnChangeHashes}	|
+|																									|
+|	See Also:			@{HPMProjectCustomColumnChangeHashes}										|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMProjectCustomColumnChangeHash
+{
+	HPMUInt32 m_HashFrom;	// The custom column hash to change from
+	HPMUInt32 m_HashTo;		// The custom column hash to change to
+} HPMProjectCustomColumnChangeHash;
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
+|	Description:		Used for specifying a hash changes in @{ProjectCustomColumnsSet}.			|
+|																									|
+|	See Also:			@{ProjectCustomColumnsSet}													|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMProjectCustomColumnChangeHashes
+{
+	HPMUInt32 m_nHashChanges;								// The number of hash changes.
+	const HPMProjectCustomColumnChangeHash *m_pHashChanges;	// Pointer to a list of hash changes. See @{HPMProjectCustomColumnChangeHash}.
+} HPMProjectCustomColumnChangeHashes;
+
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
 |	Description:		Used for specifying a custom column in @{HPMProjectCustomColumns},			|
 |						@{ProjectCustomColumnsCreate} and @{UtilGetColumnHash}.						|
 |																									|
-|	See Also:			@{HPMProjectCustomColumnAncestry}												|
+|	See Also:			@{HPMProjectCustomColumnAncestry}											|
 |																									|
 |	Location:			Structures																	|
 |																									|
@@ -1639,22 +1690,27 @@ typedef struct HPMProjectWorkflowEnumObjectProperties
 \*_________________________________________________________________________________________________*/
 typedef struct HPMProjectViewPreset
 {
-	const HPMChar *m_pName;							// The name of the user view preset.
-	HPMUInt32 m_nResources;							// The number of resources this preset applies for.
-	const HPMResourceDefinition *m_pResources;		// Pointer to a list of resources this preset applies for. See @{HPMResourceDefinition}.
-	HPMUInt32 m_nColumns;							// The number of columns that will be visible.
-	const HPMColumn *m_pColumns;					// Pointer to a list of columns that will be visible. See @{HPMColumn}.
-	HPMUInt32 m_nColumnsOrder;						// The number of columns used for column order.
-	const HPMColumn *m_pColumnsOrder;				// Pointer to a list of columns that will used for column order. See @{HPMColumn}.
-	HPMUInt32 m_nItemSettingsColumns;				// The number of columns that will be visible in item settings/details.
-	const HPMColumn *m_pItemSettingsColumns;		// Pointer to a list of columns that will be visible in item settings/details. See @{HPMColumn}.
-	HPMUInt32 m_nItemSettingsColumnsOrder;			// The number of columns that will be used for item settings/details column order.
-	const HPMColumn *m_pItemSettingsColumnsOrder;	// Pointer to a list of columns that will be used for in item settings/details column order. See @{HPMColumn}.
-	HPMUInt32 m_nQAItemSettingsColumns;				// The number of columns that will be visible in item settings/details when selecting a bug in the planning section.
-	const HPMColumn *m_pQAItemSettingsColumns;		// Pointer to a list of columns that will be visible in item settings/details when selecting a bug in the planning section. See @{HPMColumn}.
-	HPMUInt32 m_nQAItemSettingsColumnsOrder;		// The number of columns that will be used for item settings/details column order when selecting a bug in the planning section.
-	const HPMColumn *m_pQAItemSettingsColumnsOrder;	// Pointer to a list of columns that will be used for in item settings/details column order when selecting a bug in the planning section. See @{HPMColumn}.
-	HPMUInt32 m_ShowOptions;						// [type=EHPMProjectPresetShowOptionFlag,default=EHPMProjectPresetShowOptionFlag_None] Options that will be set by the preset. Can be any of combination of @{EHPMProjectPresetShowOptionFlag} that are valid for the current type of project.
+	HPMUniqueID m_ID;									// The unique identifier of the user view preset.
+	HPMUniqueID m_LocalID;								// Locally unique identifier.
+	HPMUniqueID m_CreatedBy;							// The unique identifier of the user that created the user view preset.
+	HPMUInt32 m_nShareWithUsers;						// The number of resources this preset is shared with.
+	const HPMResourceDefinition *m_pShareWithUsers;		// Pointer to a list of resources this preset is shared with. See @{HPMResourceDefinition}.
+	HPMUInt32 m_nShareWithEditRights;					// The number of resources that has edit rights for this preset.
+	const HPMResourceDefinition *m_pShareWithEditRights;// Pointer to a list of resources that has edit rights for this preset. See @{HPMResourceDefinition}.
+	const HPMChar *m_pName;								// The name of the user view preset.
+	HPMUInt32 m_nColumns;								// The number of columns that will be visible.
+	const HPMColumn *m_pColumns;						// Pointer to a list of columns that will be visible. See @{HPMColumn}.
+	HPMUInt32 m_nColumnsOrder;							// The number of columns used for column order.
+	const HPMColumn *m_pColumnsOrder;					// Pointer to a list of columns that will used for column order. See @{HPMColumn}.
+	HPMUInt32 m_nItemSettingsColumns;					// The number of columns that will be visible in item settings/details.
+	const HPMColumn *m_pItemSettingsColumns;			// Pointer to a list of columns that will be visible in item settings/details. See @{HPMColumn}.
+	HPMUInt32 m_nItemSettingsColumnsOrder;				// The number of columns that will be used for item settings/details column order.
+	const HPMColumn *m_pItemSettingsColumnsOrder;		// Pointer to a list of columns that will be used for in item settings/details column order. See @{HPMColumn}.
+	HPMUInt32 m_nQAItemSettingsColumns;					// The number of columns that will be visible in item settings/details when selecting a bug in the planning section.
+	const HPMColumn *m_pQAItemSettingsColumns;			// Pointer to a list of columns that will be visible in item settings/details when selecting a bug in the planning section. See @{HPMColumn}.
+	HPMUInt32 m_nQAItemSettingsColumnsOrder;			// The number of columns that will be used for item settings/details column order when selecting a bug in the planning section.
+	const HPMColumn *m_pQAItemSettingsColumnsOrder;		// Pointer to a list of columns that will be used for in item settings/details column order when selecting a bug in the planning section. See @{HPMColumn}.
+	HPMUInt32 m_ShowOptions;							// [type=EHPMProjectPresetShowOptionFlag,default=EHPMProjectPresetShowOptionFlag_None] Options that will be set by the preset. Can be any of combination of @{EHPMProjectPresetShowOptionFlag} that are valid for the current type of project.
 } HPMProjectViewPreset;
 
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
@@ -1663,7 +1719,6 @@ typedef struct HPMProjectViewPreset
 |	Description:		Used to define the view presets for a project.								|
 |																									|
 |	See Also:			@{HPMProjectViewPreset}, @{ProjectGetViewPresets},							|
-|						@{ProjectSetViewPresets}													|
 |																									|
 |	Location:			Structures																	|
 |																									|
@@ -1674,6 +1729,26 @@ typedef struct HPMProjectViewPresets
 	HPMUInt32 m_nPresets;							// The number of view presets for this project. 
 	HPMProjectViewPreset *m_pPresets;			// Pointer to a list of view presets for this project. See @{HPMProjectViewPreset}.
 } HPMProjectViewPresets;
+
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Class:																							|
+|																									|
+|	Description:		Used to define column meta data.											|
+|																									|
+|	See Also:			@{ProjectGetColumnMetaData}, @{ProjectSetColumnMetaData}					|
+|																									|
+|	Location:			Structures																	|
+|																									|
+|	Index:				!name																		|
+\*_________________________________________________________________________________________________*/
+typedef struct HPMProjectColumnMetaData
+{
+	const HPMChar *m_pDetailedDescription;	// The detailed descriptoin for the column.
+	const HPMVariantData *m_pDefaultValue;	// The default value for the column.
+	HPMResourceDefinitionList m_EditableBy;	// The list of resources or resource groups that have edit rights for column on tasks.
+	HPMUInt32 m_Flags;						// [type=EHPMProjectColumnMetaDataFlag,default=EHPMProjectColumnMetaDataFlag_None] Flags for the column.
+} HPMProjectColumnMetaData;
 
 #ifndef DHPMSdk_OnlyDefinitions
 
@@ -2230,6 +2305,12 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsGet)(
 |																									|
 |	Return Value:		Returns an error code. See @{EHPMError}.									|
 |																									|
+|	Comments:			If you change a custom column so its hash changes, you need to make sure to|
+|						include its old and new hash in an entry in _pHashChanges. See				|
+|						@{HPMProjectCustomColumnChangeHashes}. If you don't do this custom column	|
+|						data for this column will be deleted on all tasks.							|
+|																									|
+|																									|
 |	See Also:			@{HPMSdkFunctions}, @{HPMProjectCustomColumns}								|
 |																									|
 |	Location:			Function Pointers															|
@@ -2237,9 +2318,10 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsGet)(
 |	Index:				!name																		|
 |						ProjectCustomColumnsSet														|
 \*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsSet)(	void *_pSession,							// [in] A connected session. See @{SessionOpen}.
-																					HPMUniqueID _ProjectID,						// [in] The unique identifier of the project to set custom columns on.
-																					const HPMProjectCustomColumns *_pColumns	// [in] The custom columns to set on the project. See @{HPMProjectCustomColumns}.
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsSet)(	void *_pSession,										// [in] A connected session. See @{SessionOpen}.
+																					HPMUniqueID _ProjectID,									// [in] The unique identifier of the project to set custom columns on.
+																					const HPMProjectCustomColumns *_pColumns,				// [in] The custom columns to set on the project. See @{HPMProjectCustomColumns}.
+																					const HPMProjectCustomColumnChangeHashes *_pHashChanges	// [in] The list of custom columns that hashes where changed for. See @{HPMProjectCustomColumns}.
 																				);
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
@@ -2259,52 +2341,6 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsCreat
 																					HPMUniqueID _ProjectID,							// [in] The unique identifier of the project to create the column in.
 																					const HPMProjectCustomColumnsColumn *_pColumn	// [in] The custom column to create in the project. See @{HPMProjectCustomColumnsColumn}.
 																				);
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
-|	Description:		Deletes custom column task data in a project.								|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	Comments:			When deleting a column you need to make sure to call						|
-|						ProjectCustomColumnsDeleteTaskData for its column hash, otherwise the data	|
-|						will be left in the database. 												|
-|																									|
-|	See Also:			@{HPMSdkFunctions}	 														|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						ProjectCustomColumnsDeleteTaskData											|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsDeleteTaskData)(	void *_pSession,		// [in] A connected session. See @{SessionOpen}.
-																							HPMUniqueID _ProjectID, // [in] The unique identifier of the project to delete custom column task data in.
-																							HPMUInt32 _ColumnHash	// [in] The column hash of the data to delete.
-																						);
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
-|	Description:		Moves custom column data to a new column hash in a project.					|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	Comments:			When a custom column hash changes you must call								|
-|						ProjectCustomColumnsRenameTaskData otherwise the old data					|
-|						will be left in the database. 												|
-|																									|
-|	See Also:			@{HPMSdkFunctions}	 														|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						ProjectCustomColumnsRenameTaskData											|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCustomColumnsRenameTaskData)(	void *_pSession,			// [in] A connected session. See @{SessionOpen}.
-																							HPMUniqueID _ProjectID,		// [in] The unique identifier of the project to rename custom column task data in.
-																							HPMUInt32 _ColumnHashFrom,	// [in] The hash of the custom column to move data from.
-																							HPMUInt32 _ColumnHashTo		// [in] The hash of the custom column to move data to.
-																						);
-
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
 |																									|
@@ -3263,7 +3299,6 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectGetCustomColumnAnc
 																						const HPMProjectCustomColumnAncestry **_pAncestry	// [out] Pointer to a pointer of a @{HPMProjectCustomColumnAncestry} object, representing the returned data.
 																					);
 
-
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
 |																									|
@@ -3572,25 +3607,6 @@ typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectGetViewPresets)(	v
 /*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
 |	Function:																						|
 |																									|
-|	Description:		Sets the view presets for a project.										|
-|																									|
-|	Return Value:		Returns an error code. See @{EHPMError}.									|
-|																									|
-|	See Also:			@{HPMSdkFunctions}, @{HPMProjectViewPresets}								|
-|																									|
-|	Location:			Function Pointers															|
-|																									|
-|	Index:				!name																		|
-|						ProjectSetViewPresets														|
-\*_________________________________________________________________________________________________*/
-typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectSetViewPresets)(	void *_pSession,								// [in] A connected session. See @{SessionOpen}.
-																					HPMUniqueID _ProjectID,							// [in] The unique identifier of the project to set view presets for.
-																					const HPMProjectViewPresets *_pSettings		// [in] User view presets to set. See @{HPMProjectViewPresets}.
-																				);
-
-/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
-|	Function:																						|
-|																									|
 |	Description:		Applies the view presets for a resource in a project.						|
 |																									|
 |	Return Value:		Returns an error code. See @{EHPMError}.									|
@@ -3749,5 +3765,102 @@ typedef HPMError(DHPMSdkCallingConvention *HPMFunctionProjectGetConvertedQAWorkf
 																					HPMUniqueID _ProjectID,			// [in] The unique identifier of the QA project to set default workflow in.
 																					HPMUInt32* _WorkflowID			// [out] The unique ID of the current workflow that previously was the singular QA workflow.
 																					);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Creates a user view preset for a project.									|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}.									|
+|																									|
+|	See Also:			@{HPMSdkFunctions},	@{HPMProjectViewPreset}									|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						ProjectCreateViewPreset														|
+\*_________________________________________________________________________________________________*/
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectCreateViewPreset)(void *_pSession,						// [in] A connected session. See @{SessionOpen}.
+																				HPMUniqueID _ProjectID,					// [in] The unique identifier of the project to create the user view preset in.
+																				HPMProjectViewPreset const* _pPreset	// [in] The @{HPMProjectViewPreset} preset to create.
+																				);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Changes a user view preset for a project.									|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}.									|
+|																									|
+|	See Also:			@{HPMSdkFunctions},	@{HPMProjectViewPreset}									|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						ProjectChangeViewPreset														|
+\*_________________________________________________________________________________________________*/
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectChangeViewPreset)(void *_pSession,						// [in] A connected session. See @{SessionOpen}.
+																				HPMUniqueID _ProjectID,					// [in] The unique identifier of the project to change the user view preset in.
+																				HPMProjectViewPreset const* _pPreset	// [in] The @{HPMProjectViewPreset} preset to change.
+																				);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Deletes a user view preset for a project.									|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}.									|
+|																									|
+|	See Also:			@{HPMSdkFunctions},	@{HPMProjectViewPreset}									|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						ProjectDeleteViewPreset														|
+\*_________________________________________________________________________________________________*/
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectDeleteViewPreset)(void *_pSession,		// [in] A connected session. See @{SessionOpen}.
+																				HPMUniqueID _ProjectID,	// [in] The unique identifier of the project to delete the user view preset in.
+																				HPMUniqueID _PresetID	// [in] The unique identifier of the preset to delete.
+																				);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Sets meta data for a column in a project.									|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}.									|
+|																									|
+|	See Also:			@{HPMSdkFunctions}, @{HPMProjectColumnMetaData}								|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						ProjectSetColumnMetaData													|
+\*_________________________________________________________________________________________________*/
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectSetColumnMetaData)(	void *_pSession,							// [in] A connected session. See @{SessionOpen}.
+																					HPMUniqueID _ProjectID,						// [in] The unique identifier of the project to set column meta data.
+																					const HPMColumn *_pColumn,					// [in] The @{HPMColumn} to set meta data on.
+																					const HPMProjectColumnMetaData *_pMetaData	// [in] The @{HPMProjectColumnMetaData} to set.
+																				);
+
+/*¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯*\
+|	Function:																						|
+|																									|
+|	Description:		Gets meta data for a column in a project.									|
+|																									|
+|	Return Value:		Returns an error code. See @{EHPMError}.									|
+|																									|
+|	See Also:			@{HPMSdkFunctions}, @{HPMProjectColumnMetaData}								|
+|																									|
+|	Location:			Function Pointers															|
+|																									|
+|	Index:				!name																		|
+|						ProjectGetColumnMetaData													|
+\*_________________________________________________________________________________________________*/
+typedef HPMError (DHPMSdkCallingConvention *HPMFunctionProjectGetColumnMetaData)(	void *_pSession,							// [in] A connected session. See @{SessionOpen}.
+																					HPMUniqueID _ProjectID,						// [in] The unique identifier of the project to get column meta data.
+																					const HPMColumn *_pColumn,					// [in] The @{HPMColumn} to get meta data for.
+																					const HPMProjectColumnMetaData **_pMetaData	// [out] Pointer to a pointer of a @{HPMProjectColumnMetaData} object, representing the returned data.
+																				);
 
 #endif

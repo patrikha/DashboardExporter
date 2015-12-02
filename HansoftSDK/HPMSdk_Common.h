@@ -292,8 +292,8 @@ typedef struct HPMString
 |						!enums													|
 \*_____________________________________________________________________________*/
 
-#define DHPMSdkDefaultTargetVersion 0x9002
-#define DHPMSdkLowestSupportedVersion 0x9001
+#define DHPMSdkDefaultTargetVersion 0x9101
+#define DHPMSdkLowestSupportedVersion 0x9101
 
 #if DHPMSdkTargetVersion > 0
 #else
@@ -301,7 +301,7 @@ typedef struct HPMString
 #define DHPMSdkTargetVersion DHPMSdkDefaultTargetVersion
 #endif
 
-#if !defined(DHPMDocumentation) && (DHPMSdkTargetVersion < 0x9000 || DHPMSdkTargetVersion > DHPMSdkDefaultTargetVersion || DHPMSdkTargetVersion < DHPMSdkLowestSupportedVersion)
+#if !defined(DHPMDocumentation) && (DHPMSdkTargetVersion < 0x9100 || DHPMSdkTargetVersion > DHPMSdkDefaultTargetVersion || DHPMSdkTargetVersion < DHPMSdkLowestSupportedVersion)
 #error "SDK target version out of range"
 #endif
 
