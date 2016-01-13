@@ -53,89 +53,89 @@ class HansoftSDKDashboardExporter : public HPMSdkCallbacks
 {
 public:
     
-    HPMSdkSession *m_pSession;
-    bool m_bBrokenConnection;
+    HPMSdkSession *session_;
+    bool broken_connection_;
     
-    virtual void On_ProcessError(EHPMError _Error)
+    virtual void On_ProcessError(EHPMError _error) override
     {
-        HPMString SdkError = HPMSdkSession::ErrorToStr(_Error);
+        HPMString SdkError = HPMSdkSession::ErrorToStr(_error);
         wstring Error(SdkError.begin(), SdkError.end());
         
         wcout << "On_ProcessError: " << Error << "\r\n";
-        m_bBrokenConnection = true;
+        broken_connection_ = true;
     }
     
-    HPMUInt64 m_NextConnectionAttempt;
+    HPMUInt64 next_connection_attempt_;
 #ifdef _MSC_VER
-    HANDLE m_ProcessSemaphore;
+    HANDLE process_semaphore_;
 #elif __GNUC__
-    CProcessSemaphore m_ProcessSemaphore;
+    CProcessSemaphore process_semaphore_;
 #endif
-    HPMNeedSessionProcessCallbackInfo m_ProcessCallbackInfo;
+    HPMNeedSessionProcessCallbackInfo process_callback_info_;
    
-    HPMString m_Server;
-    int m_Port;
-    HPMString m_Database;
-    HPMString m_Username;
-    HPMString m_Password;
-    HPMString m_Resource;
-    vector<int> m_Charts;
-    HPMString m_Resolution;
-    bool m_json;
+    HPMString server_;
+    int port_;
+    HPMString database_;
+    HPMString username_;
+    HPMString password_;
+    HPMString resource_;
+    vector<int> charts_;
+    HPMString resolution_;
+    bool json_;
     
     HansoftSDKDashboardExporter(string server, int port, string database, string username, string password, string resource, vector<int> charts, string resolution, bool json) :
-    m_Server(server), m_Port(port), m_Database(database), m_Username(username), m_Password(password), m_Resource(resource), m_Charts(charts), m_Resolution(resolution), m_json(json)
+    server_(server), port_(port), database_(database), username_(username), password_(password), resource_(resource), charts_(charts), resolution_(resolution), json_(json)
     {
-        m_pSession = NULL;
-        m_NextConnectionAttempt = 0;
-        m_bBrokenConnection = false;
+        session_ = NULL;
+        next_connection_attempt_ = 0;
+        broken_connection_ = false;
         // Create the event that will be signaled when the SDK needs processing.
 #ifdef _MSC_VER
-        m_ProcessSemaphore = CreateSemaphore(NULL, 0, 1, NULL); // Behaves like an auto reset event.
+        process_semaphore_ = CreateSemaphore(NULL, 0, 1, NULL); // Behaves like an auto reset event.
 #elif __GNUC__
-        pthread_cond_init(&m_ProcessSemaphore.m_Cond, NULL);
-        pthread_mutex_init(&m_ProcessSemaphore.m_Mutex, NULL);
-        m_ProcessSemaphore.m_Counter = 1;
+        pthread_cond_init(&process_semaphore_.m_Cond, NULL);
+        pthread_mutex_init(&process_semaphore_.m_Mutex, NULL);
+        process_semaphore_.m_Counter = 1;
 #endif
     }
     
     ~HansoftSDKDashboardExporter()
     {
 #ifdef _MSC_VER
-        if (m_ProcessSemaphore)
-            CloseHandle(m_ProcessSemaphore);
+        if (process_semaphore_)
+            CloseHandle(process_semaphore_);
 #elif __GNUC__
-        pthread_mutex_destroy(&m_ProcessSemaphore.m_Mutex);
-        pthread_cond_destroy(&m_ProcessSemaphore.m_Cond);
+        pthread_mutex_destroy(&process_semaphore_.m_Mutex);
+        pthread_cond_destroy(&process_semaphore_.m_Cond);
 #endif
         
-        if (m_pSession)
+        if (session_)
         {
             DestroyConnection();
         }
     }
     
 #ifdef __GNUC__
-    bool SemWait(int _Timeout)
+    bool SemWait(int _timeout)
     {
         time_t Now;
         time(&Now);
         
         timespec Ts;
         Ts.tv_sec = Now;
-        Ts.tv_nsec = _Timeout * 1000000;
+        Ts.tv_nsec = _timeout * 1000000;
         
-        pthread_mutex_lock(&m_ProcessSemaphore.m_Mutex);
-        while (m_ProcessSemaphore.m_Counter == 0)
+        pthread_mutex_lock(&process_semaphore_.m_Mutex);
+        while (process_semaphore_.m_Counter == 0)
         {
-            if (pthread_cond_timedwait(&m_ProcessSemaphore.m_Cond, &m_ProcessSemaphore.m_Mutex, &Ts) == ETIMEDOUT)
+            if (pthread_cond_timedwait(&process_semaphore_.m_Cond, &process_semaphore_.m_Mutex, &Ts) == ETIMEDOUT)
             {
-                pthread_mutex_unlock(&m_ProcessSemaphore.m_Mutex);
+                pthread_mutex_unlock(&process_semaphore_.m_Mutex);
                 return true;
             }
         }
-        --m_ProcessSemaphore.m_Counter;
-        pthread_mutex_unlock(&m_ProcessSemaphore.m_Mutex);
+        --process_semaphore_.m_Counter;
+        pthread_mutex_unlock(&process_semaphore_.m_Mutex);
         return true;
     }
 #endif
@@ -143,23 +143,23 @@ public:
     HPMUInt64 GetTimeSince1970()
     {
 #ifdef _MSC_VER
-        FILETIME Time;
-        GetSystemTimeAsFileTime(&Time);
+        FILETIME time;
+        GetSystemTimeAsFileTime(&time);
         
-        return (HPMUInt64)((((ULARGE_INTEGER &)Time).QuadPart / 10) - 11644473600000000);
+        return (HPMUInt64)((((ULARGE_INTEGER &)time).QuadPart / 10) - 11644473600000000);
 #else
-        timeval Time;
-        gettimeofday(&Time, NULL);
-        return (HPMUInt64)Time.tv_sec * 1000000;
+        timeval time;
+        gettimeofday(&time, NULL);
+        return (HPMUInt64)time.tv_sec * 1000000;
 #endif
     }
     
-    static void NeedSessionProcessCallback(void *_pSemaphore)
+    static void NeedSessionProcessCallback(void *semaphore)
     {
 #ifdef _MSC_VER
-        ReleaseSemaphore(_pSemaphore, 1, NULL);
+        ReleaseSemaphore(semaphore, 1, NULL);
 #elif __GNUC__
-        CProcessSemaphore *pProcessSemaphore = (CProcessSemaphore *)_pSemaphore;
+        CProcessSemaphore *pProcessSemaphore = (CProcessSemaphore *)semaphore;
         pthread_mutex_lock(&pProcessSemaphore->m_Mutex);
         ++pProcessSemaphore->m_Counter;
         pthread_cond_signal(&pProcessSemaphore->m_Cond);
@@ -169,42 +169,42 @@ public:
     
     bool InitConnection()
     {
-        if (m_pSession)
+        if (session_)
             return true;
         
         HPMUInt64 CurrentTime = GetTimeSince1970();
-        if (CurrentTime > m_NextConnectionAttempt)
+        if (CurrentTime > next_connection_attempt_)
         {
-            m_NextConnectionAttempt = 0;
+            next_connection_attempt_ = 0;
             
-            EHPMSdkDebugMode DebugMode = EHPMSdkDebugMode_Off;
+            EHPMSdkDebugMode debug_mode = EHPMSdkDebugMode_Off;
             
 #ifdef _MSC_VER
-            m_ProcessCallbackInfo.m_pContext = m_ProcessSemaphore;
+            process_callback_info_.m_pContext = process_semaphore_;
 #elif __GNUC__
-            m_ProcessCallbackInfo.m_pContext = &m_ProcessSemaphore;
+            process_callback_info_.m_pContext = &process_semaphore_;
 #endif
-            m_ProcessCallbackInfo.m_pCallback = &HansoftSDKDashboardExporter::NeedSessionProcessCallback;
+            process_callback_info_.m_pCallback = &HansoftSDKDashboardExporter::NeedSessionProcessCallback;
             
             try
             {
-                m_pSession = HPMSdkSession::SessionOpen(m_Server, m_Port, m_Database, m_Username, m_Password, this, &m_ProcessCallbackInfo, true, DebugMode, NULL, 0, hpm_str(""), HPMSystemString(), NULL);
+                session_ = HPMSdkSession::SessionOpen(server_, port_, database_, username_, password_, this, &process_callback_info_, true, debug_mode, NULL, 0, hpm_str(""), HPMSystemString(), NULL);
             }
-            catch (const HPMSdkException &_Error)
+            catch (const HPMSdkException &_error)
             {
-                HPMString SdkError = _Error.GetAsString();
+                HPMString SdkError = _error.GetAsString();
                 wstring Error(SdkError.begin(), SdkError.end());
                 wcout << hpm_str("SessionOpen failed with error:") << Error << hpm_str("\r\n");
                 return false;
             }
-            catch (const HPMSdkCppException &_Error)
+            catch (const HPMSdkCppException &_error)
             {
-                wcout << hpm_str("SessionOpen failed with error:") << _Error.what() << hpm_str("\r\n");
+                wcout << hpm_str("SessionOpen failed with error:") << _error.what() << hpm_str("\r\n");
                 return false;
             }
             
             wcout << "Successfully opened session.\r\n";
-            m_bBrokenConnection = false;
+            broken_connection_ = false;
             
             return true;
         }
@@ -214,230 +214,251 @@ public:
     
     void DestroyConnection()
     {
-        m_ChartSubscriptions.clear();
+        chart_subscriptions_.clear();
         
-        if (m_pSession)
+        if (session_)
         {
-            HPMSdkSession::SessionDestroy(m_pSession);
-            m_pSession = NULL;
+            HPMSdkSession::SessionDestroy(session_);
+            session_ = NULL;
         }
     }
     
     using HPMSdkCallbacks::On_Callback;
     
-    map<HPMUniqueID, HPMDashboardChartSubscription> m_ChartSubscriptions;
-    set<HPMUniqueID> m_UpdatedCharts;
+    map<HPMUniqueID, HPMDashboardChartSubscription> chart_subscriptions_;
+    set<HPMUniqueID> updated_charts_;
     
     template<typename Integer>
-    HPMString ToHPMString(Integer Value)
+    HPMString ToHPMString(Integer value)
     {
-        HPMString ReturnValue;
+        HPMString return_value;
         
 #if HPMCharSize == 1
-        ReturnValue = std::to_string(Value);
+        return_value = std::to_string(value);
 #else
-        ReturnValue = std::to_wstring(Value);
+        return_value = std::to_wstring(value);
 #endif
         
-        return ReturnValue;
+        return return_value;
     }
     
-    void On_Callback(const HPMChangeCallbackData_DashboardChartReceive &_Data) override
+    void On_Callback(const HPMChangeCallbackData_DashboardChartReceive &_data) override
     {
-        m_UpdatedCharts.insert(_Data.m_ChartID);
-        wcout << "Chart " << _Data.m_ChartID << " was updated.\r\n";
+        updated_charts_.insert(_data.m_ChartID);
+        wcout << "Chart " << _data.m_ChartID << " was updated.\r\n";
     }
     
-    HPMString GenerateFilename(HPMUniqueID ChartID, HPMString Folder, HPMString Suffix)
+    HPMString GenerateFilename(HPMUniqueID chart_id, HPMString folder, HPMString suffix)
     {
-        HPMString FileName =
+        HPMString file_name =
 #ifdef _WIN32
-        hpm_str(".\\" + Folder + "\\Chart")
+        hpm_str(".\\" + folder + "\\Chart")
 #elif __GNUC__
-        hpm_str("./" + Folder + "/Chart")
+        hpm_str("./" + folder + "/Chart")
 #endif
-        + ToHPMString(ChartID.m_ID) + Suffix;
+        + ToHPMString(chart_id.m_ID) + suffix;
         
-        return FileName;
+        return file_name;
     }
     
-    void ExportImageChart(HPMUniqueID ChartID, HPMString ResultSet)
+    void ExportImageChart(HPMUniqueID chart_id, HPMString result_set)
     {
-        HPMString ChartRegistryFileName = GenerateFilename(ChartID, hpm_str("IRG"), hpm_str(".irg"));
-        HPMString ChartImageFileName = GenerateFilename(ChartID, hpm_str("CHARTS"), hpm_str(".png"));
+        HPMString chart_registry_file_name = GenerateFilename(chart_id, hpm_str("IRG"), hpm_str(".irg"));
+        HPMString chart_image_file_name = GenerateFilename(chart_id, hpm_str("CHARTS"), hpm_str(".png"));
         
         // Write the result set registry to file
-        std::filebuf FileBuffer;
-        FileBuffer.open(ChartRegistryFileName.c_str(), std::ios::out);
-        std::ostream OutStream(&FileBuffer);
-        OutStream << string(ResultSet.begin(), ResultSet.end());
-        FileBuffer.close();
+        std::filebuf file_buffer;
+        file_buffer.open(chart_registry_file_name.c_str(), std::ios::out);
+        std::ostream out_stream(&file_buffer);
+        out_stream << string(result_set.begin(), result_set.end());
+        file_buffer.close();
         
-        HPMString ResultSetToolPath =
+        HPMString resultsettool_path =
 #ifdef _MSC_VER
         hpm_str(".\\HPMResultSetTool.exe");
 #elif __GNUC__
         hpm_str("./HPMResultSetTool");
 #endif
         
-        HPMString CommandLine = ResultSetToolPath + hpm_str(" ") + ChartRegistryFileName + hpm_str(" ") + ChartImageFileName + hpm_str(" ") + m_Resolution;
+        HPMString command_line = resultsettool_path + hpm_str(" ") + chart_registry_file_name + hpm_str(" ") + chart_image_file_name + hpm_str(" ") + resolution_;
         
 #if HPMCharSize == 1
-        system(CommandLine.c_str());
+        system(command_line.c_str());
 #else
-        _wsystem(CommandLine.c_str());
+        _wsystem(command_line.c_str());
 #endif
-        wcout << "Chart " << ChartID << " was exported as image.\r\n";
+        wcout << "Chart " << chart_id << " was exported as image.\r\n";
     }
     
-    void ExportJsonChart(HPMUniqueID ChartID, HPMDashboardChartResultSet ResultSet)
+    void ExportJsonChart(HPMUniqueID chart_id, HPMDashboardChartResultSet result_set)
     {
-        HPMString ChartJsonFileName = GenerateFilename(ChartID, hpm_str("JSON"), hpm_str(".json"));
+        HPMString chart_json_file_name = GenerateFilename(chart_id, hpm_str("JSON"), hpm_str(".json"));
 
-        std::filebuf FileBuffer;
-        FileBuffer.open(ChartJsonFileName.c_str(), std::ios::out);
-        std::ostream OutStream(&FileBuffer);
-        
-        std::vector<EHPMDashboardChartResultDataType> DimensionTypes;
-        std::vector<std::vector<std::string>> DimensionValues;
-        for (HPMDashboardChartResultSetElementInfo DimensionInfo : ResultSet.m_Dimensions.m_DimensionInfos)
+        std::filebuf file_buffer;
+        file_buffer.open(chart_json_file_name.c_str(), std::ios::out);
+        std::ostream out_stream(&file_buffer);
+
+        std::vector<HPMString> dimension_names;
+        std::vector<EHPMDashboardChartResultDataType> dimension_types;
+        std::vector<std::vector<std::string>> dimension_rows;
+        for (auto dimension_info : result_set.m_Dimensions.m_DimensionInfos)
         {
-            DimensionTypes.push_back(DimensionInfo.m_Type);
-            DimensionValues.push_back(std::vector<std::string>());
+            dimension_names.push_back(session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), dimension_info.m_Name));
+            dimension_types.push_back(dimension_info.m_Type);
         }
-        for (HPMDashboardChartResultSetRow DimensionRow : ResultSet.m_Dimensions.m_Rows)
+        for (auto dimension_row : result_set.m_Dimensions.m_Rows)
         {
-            for (HPMDashboardChartResultSetValue Value : DimensionRow.m_Values)
+            std::vector<std::string> row;
+            for (auto dimension_value : dimension_row.m_Values)
             {
-                switch (DimensionTypes[Value.m_Index])
+                switch (dimension_types[dimension_value.m_Index])
                 {
                     case HPMSdk::EHPMDashboardChartResultDataType_HPMString:
                     {
-                        DimensionValues[Value.m_Index].push_back(m_pSession->VariantDecode_HPMString(Value.m_VariantData));
+                        row.push_back(session_->VariantDecode_HPMString(dimension_value.m_VariantData));
                         break;
                     }
                     case HPMSdk::EHPMDashboardChartResultDataType_HPMFP64:
                     {
                         std::ostringstream o;
-                        o << m_pSession->VariantDecode_HPMFP64(Value.m_VariantData);
-                        DimensionValues[Value.m_Index].push_back(o.str());
+                        o << session_->VariantDecode_HPMFP64(dimension_value.m_VariantData);
+                        row.push_back(o.str());
                         break;
                     }
                     case HPMSdk::EHPMDashboardChartResultDataType_HPMUInt64:
                     {
                         std::ostringstream o;
-                        o << m_pSession->VariantDecode_HPMUInt64(Value.m_VariantData);
-                        DimensionValues[Value.m_Index].push_back(o.str());
+                        o << session_->VariantDecode_HPMUInt64(dimension_value.m_VariantData);
+                        row.push_back(o.str());
                         break;
                     }
                     case HPMSdk::EHPMDashboardChartResultDataType_Binary:
                     {
-                        HPMUntranslatedString UString = m_pSession->VariantDecode_HPMUntranslatedString(Value.m_VariantData);
-                        DimensionValues[Value.m_Index].push_back(m_pSession->LocalizationTranslateString(m_pSession->LocalizationGetDefaultLanguage(), UString));
+                        HPMUntranslatedString u_string = session_->VariantDecode_HPMUntranslatedString(dimension_value.m_VariantData);
+                        row.push_back(session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), u_string));
                         break;
                     }
                     default:
                     {
-                        DimensionValues[Value.m_Index].push_back("");
+                        row.push_back("");
                     }
                 }
             }
+            dimension_rows.push_back(row);
         }
-        OutStream << "{";
-        std::vector<EHPMDashboardChartResultDataType> MeasureTypes;
-        std::vector<std::string> MeasureNames;
-        OutStream << "\"series\": [";
+        std::vector<EHPMDashboardChartResultDataType> measure_types;
+        std::vector<std::string> measure_names;
+        for (auto measure_info : result_set.m_Measures.m_MeasureInfos)
+        {
+            measure_types.push_back(measure_info.m_Type);
+            HPMString name = session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), measure_info.m_Name);
+            measure_names.push_back(name);
+        }
+
+        out_stream << "{\"dimensions\": [";
         bool first = true;
-        for (HPMDashboardChartResultSetElementInfo MeasureInfo : ResultSet.m_Measures.m_MeasureInfos)
+        for (auto name : dimension_names)
         {
-            if (first)
-                first = false;
-            else
-                OutStream << ", ";
-            MeasureTypes.push_back(MeasureInfo.m_Type);
-            HPMString name = m_pSession->LocalizationTranslateString(m_pSession->LocalizationGetDefaultLanguage(), MeasureInfo.m_Name);
-            MeasureNames.push_back(name);
-            OutStream << "\"" << name << "\"";
+            if (!first)
+                out_stream << ", ";
+            out_stream << "\"" << name << "\"";
+            first = false;
         }
-        OutStream << "], \r\n";
-        OutStream << "\"measures\": {\r\n";
-        int index = 0;
-        bool firstrow = true;
-        for (HPMDashboardChartResultSetRow MeasureRow : ResultSet.m_Measures.m_Rows)
+
+        out_stream << "], \"measures\": [";
+        first = true;
+        for (auto name : measure_names)
         {
-            if (firstrow)
-                firstrow = false;
-            else
-                OutStream << ",\r\n";
-            OutStream << "\"" << DimensionValues[0][index++] << "\": ";
-            OutStream << "[";
-            bool first = true;
-            for (HPMDashboardChartResultSetValue Value : MeasureRow.m_Values)
+            if (!first)
+                out_stream << ", ";
+            out_stream << "\"" << name << "\"";
+        }
+
+        out_stream << "], \"rows\": [";
+        bool first_row = true;
+        int index = 0;
+        for (auto measure_row : result_set.m_Measures.m_Rows)
+        {
+            if (!first_row)
+                out_stream << ", ";
+            out_stream << "{\"dimensions\": [";
+            auto dimension_row = dimension_rows[index++];
+            first = true;
+            for (auto dimension_value : dimension_row)
             {
-                if (first)
-                    first = false;
-                else
-                    OutStream << ", ";
-                switch (MeasureTypes[Value.m_Index])
+                if (!first)
+                    out_stream << ", ";
+                out_stream << "\"" << dimension_value << "\"";
+                first = false;
+            }
+            out_stream << "], \"measures\": [";
+            first = true;
+            for (auto measure_value : measure_row.m_Values)
+            {
+                if (!first)
+                    out_stream << ", ";
+                switch (measure_types[measure_value.m_Index])
                 {
                     case HPMSdk::EHPMDashboardChartResultDataType_HPMFP64:
                     {
-                        OutStream << m_pSession->VariantDecode_HPMFP64(Value.m_VariantData);
+                        out_stream << session_->VariantDecode_HPMFP64(measure_value.m_VariantData);
                         break;
                     }
                     case HPMSdk::EHPMDashboardChartResultDataType_HPMUInt64:
                     {
-                        OutStream << m_pSession->VariantDecode_HPMUInt64(Value.m_VariantData);
+                        out_stream << session_->VariantDecode_HPMUInt64(measure_value.m_VariantData);
                         break;
                     }
                     default:
                     {
-                        OutStream << "0";
+                        out_stream << "0";
                     }
                 }
+                first = false;
             }
-            OutStream << "]";
+            out_stream << "]}";
+            first_row = false;
         }
-        OutStream << "}\r\n";
-        OutStream << "}\r\n";
-        FileBuffer.close();
+        out_stream << "]}";
 
-        wcout << "Chart " << ChartID << " was exported as json.\r\n";
+        file_buffer.close();
+
+        wcout << "Chart " << chart_id << " was exported as json.\r\n";
     }
 
-    void SubscribeToChart(HPMUniqueID ChartID)
+    void SubscribeToChart(HPMUniqueID chart_id)
     {
         try
         {
-            if (m_ChartSubscriptions.find(ChartID) == m_ChartSubscriptions.end())
-                m_ChartSubscriptions[ChartID] = m_pSession->DashboardSubscribeToChart(ChartID);
+            if (chart_subscriptions_.find(chart_id) == chart_subscriptions_.end())
+                chart_subscriptions_[chart_id] = session_->DashboardSubscribeToChart(chart_id);
         }
-        catch (HPMSdkException &_Error)
+        catch (HPMSdkException &_error)
         {
-            cout << _Error.GetError();
+            cout << _error.GetError();
         }
     }
     
-    HPMUniqueID FindChartByName(HPMUniqueID PageID, HPMString Name)
+    HPMUniqueID FindChartByName(HPMUniqueID page_id, HPMString name)
     {
-        HPMUniqueEnum Charts = m_pSession->DashboardChartEnum(PageID);
-        for (HPMUniqueID ChartID : Charts.m_IDs)
+        HPMUniqueEnum charts = session_->DashboardChartEnum(page_id);
+        for (HPMUniqueID chart_id : charts.m_IDs)
         {
-            HPMString ChartName = m_pSession->DashboardChartGetName(ChartID);
-            if (ChartName == Name)
-                return ChartID;
+            HPMString chart_name = session_->DashboardChartGetName(chart_id);
+            if (chart_name == name)
+                return chart_id;
         }
         return HPMUniqueID();
     }
     
-    HPMUniqueID FindPageByName(HPMString Name)
+    HPMUniqueID FindPageByName(HPMString name)
     {
-        HPMUniqueEnum Pages = m_pSession->DashboardPageEnum();
-        for (HPMUniqueID PageID : Pages.m_IDs)
+        HPMUniqueEnum pages = session_->DashboardPageEnum();
+        for (HPMUniqueID page_id : pages.m_IDs)
         {
-            HPMString PageName = m_pSession->DashboardPageGetName(PageID);
-            if (PageName == Name)
-                return PageID;
+            HPMString page_name = session_->DashboardPageGetName(page_id);
+            if (page_name == name)
+                return page_id;
         }
         return HPMUniqueID();
     }
@@ -448,68 +469,75 @@ public:
         {
             try
             {
-                if (m_bBrokenConnection)
+                if (broken_connection_)
                 {
                     DestroyConnection();
                 }
                 else
                 {
-                    set<HPMUniqueID> ExportCharts;
+                    set<HPMUniqueID> export_charts;
 
-                    HPMUniqueEnum Pages = m_pSession->DashboardPageEnum();
+                    HPMUniqueEnum pages = session_->DashboardPageEnum();
                     
-                    for (HPMUniqueID PageID : Pages.m_IDs)
+                    for (HPMUniqueID page_id : pages.m_IDs)
                     {
-                        for (HPMUniqueID ChartID : m_pSession->DashboardChartEnum(PageID).m_IDs)
+                        for (HPMUniqueID chart_id : session_->DashboardChartEnum(page_id).m_IDs)
                         {
-                            if (find(m_Charts.begin(), m_Charts.end(), ChartID) != m_Charts.end())
+                            if (find(charts_.begin(), charts_.end(), chart_id) != charts_.end())
                             {
-                                ExportCharts.insert(ChartID);
-                                SubscribeToChart(ChartID);
+                                export_charts.insert(chart_id);
+                                SubscribeToChart(chart_id);
                             }
                         }
                     }
                     
                     // wait max 30 seconds before timeout
                     HPMUInt64 timeout = GetTimeSince1970() + 1000000*30;
-                    while (!ExportCharts.empty() && GetTimeSince1970() < timeout)
+                    while (!export_charts.empty() && GetTimeSince1970() < timeout)
                     {
-                        m_pSession->SessionProcess();
-                        for (HPMUniqueID ChartID : m_UpdatedCharts)
+                        session_->SessionProcess();
+                        for (HPMUniqueID chart_id : updated_charts_)
                         {
-                            set<HPMUniqueID>::iterator it = ExportCharts.find(ChartID);
-                            if (it != ExportCharts.end())
-                                ExportCharts.erase(it);
+                            set<HPMUniqueID>::iterator it = export_charts.find(chart_id);
+                            if (it != export_charts.end())
+                                export_charts.erase(it);
                         }
                     }
                     
-                    if (!m_UpdatedCharts.empty())
+                    if (!updated_charts_.empty())
                     {
-                        for (HPMUniqueID ChartID : m_UpdatedCharts)
+                        for (HPMUniqueID chart_id : updated_charts_)
                         {
-                            if (m_json)
+                            if (json_)
                             {
-                                HPMDashboardChartResultSet ResultSet = m_pSession->DashboardSubscriptionGetLastResultSet(m_ChartSubscriptions[ChartID]);
-                                ExportJsonChart(ChartID, ResultSet);
+                                HPMDashboardChartResultSet result_set = session_->DashboardSubscriptionGetLastResultSet(chart_subscriptions_[chart_id]);
+                                ExportJsonChart(chart_id, result_set);
                             }
                             else
                             {
-                                HPMString ResultSet = m_pSession->DashboardSubscriptionGetLastResultSetAsString(m_ChartSubscriptions[ChartID]);
-                                ExportImageChart(ChartID, ResultSet);
+                                HPMString result_set = session_->DashboardSubscriptionGetLastResultSetAsString(chart_subscriptions_[chart_id]);
+                                // Write the result set registry to file
+                                std::filebuf file_buffer;
+                                file_buffer.open("resultset", std::ios::out);
+                                std::ostream out_stream(&file_buffer);
+                                out_stream << string(result_set.begin(), result_set.end());
+                                file_buffer.close();
+                                
+                                ExportImageChart(chart_id, result_set);
                             }
                         }
                     }
                 }
             }
-            catch (HPMSdkException &_Error)
+            catch (HPMSdkException &_error)
             {
-                HPMString SdkError = _Error.GetAsString();
-                wstring Error(SdkError.begin(), SdkError.end());
+                HPMString sdk_error = _error.GetAsString();
+                wstring Error(sdk_error.begin(), sdk_error.end());
                 wcout << hpm_str("Exception in processing loop: ") << Error << hpm_str("\r\n");
             }
-            catch (HPMSdkCppException _Error)
+            catch (HPMSdkCppException _error)
             {
-                wcout << hpm_str("Exception in processing loop: ") << _Error.what() << hpm_str("\r\n");
+                wcout << hpm_str("Exception in processing loop: ") << _error.what() << hpm_str("\r\n");
             }
         }
     }
@@ -518,7 +546,7 @@ public:
     {
         Update();
 #ifdef _MSC_VER
-        WaitForSingleObjectEx(m_ProcessSemaphore, 100, true);
+        WaitForSingleObjectEx(process_semaphore_, 100, true);
 #elif __GNUC__
         SemWait(100);
 #endif
@@ -531,6 +559,6 @@ public:
 
 void Export(string server, int port, string database, string username, string password, string resource, vector<int> charts, string dimensions, bool json)
 {
-    HansoftSDKDashboardExporter Exporter(server, port, database, username, password, resource, charts, dimensions, json);
-    Exporter.Run();
+    HansoftSDKDashboardExporter exporter(server, port, database, username, password, resource, charts, dimensions, json);
+    exporter.Run();
 }
