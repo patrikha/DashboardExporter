@@ -300,11 +300,13 @@ public:
 
         std::vector<HPMString> dimension_names;
         std::vector<EHPMDashboardChartResultDataType> dimension_types;
+        std::vector<EHPMDashboardChartResultDataSubType> dimension_subtypes;
         std::vector<std::vector<std::string>> dimension_rows;
         for (auto dimension_info : result_set.m_Dimensions.m_DimensionInfos)
         {
             dimension_names.push_back(session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), dimension_info.m_Name));
             dimension_types.push_back(dimension_info.m_Type);
+            dimension_subtypes.push_back(dimension_info.m_SubType);
         }
         for (auto dimension_row : result_set.m_Dimensions.m_Rows)
         {
@@ -334,8 +336,19 @@ public:
                     }
                     case HPMSdk::EHPMDashboardChartResultDataType_Binary:
                     {
-                        HPMUntranslatedString u_string = session_->VariantDecode_HPMUntranslatedString(dimension_value.m_VariantData);
-                        row.push_back(session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), u_string));
+                        switch (dimension_subtypes[dimension_value.m_Index])
+                        {
+                            case HPMSdk::EHPMDashboardChartResultDataSubType_UntranslatedString:
+                            {
+                                HPMUntranslatedString u_string = session_->VariantDecode_HPMUntranslatedString(dimension_value.m_VariantData);
+                                row.push_back(session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), u_string));
+                                break;
+                            }
+                            default:
+                            {
+                                row.push_back("");
+                            }
+                        }
                         break;
                     }
                     default:
@@ -347,10 +360,12 @@ public:
             dimension_rows.push_back(row);
         }
         std::vector<EHPMDashboardChartResultDataType> measure_types;
+        std::vector<EHPMDashboardChartResultDataSubType> measure_subtypes;
         std::vector<std::string> measure_names;
         for (auto measure_info : result_set.m_Measures.m_MeasureInfos)
         {
             measure_types.push_back(measure_info.m_Type);
+            measure_subtypes.push_back(measure_info.m_SubType);
             HPMString name = session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), measure_info.m_Name);
             measure_names.push_back(name);
         }
@@ -412,8 +427,19 @@ public:
                     }
                     case HPMSdk::EHPMDashboardChartResultDataType_Binary:
                     {
-                        auto data = session_->VariantDecode_HPMUntranslatedString(measure_value.m_VariantData);
-                        out_stream << "\"" << session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), data) << "\"";
+                        switch (measure_subtypes[measure_value.m_Index])
+                        {
+                            case HPMSdk::EHPMDashboardChartResultDataSubType_UntranslatedString:
+                            {
+                                auto u_string = session_->VariantDecode_HPMUntranslatedString(measure_value.m_VariantData);
+                                out_stream << "\"" << session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), u_string) << "\"";
+                                break;
+                            }
+                            default:
+                            {
+                                out_stream << "0";
+                            }
+                        }
                         break;
                     }
                     default:
