@@ -372,6 +372,7 @@ public:
             if (!first)
                 out_stream << ", ";
             out_stream << "\"" << name << "\"";
+            first = false;
         }
 
         out_stream << "], \"rows\": [";
@@ -407,6 +408,12 @@ public:
                     case HPMSdk::EHPMDashboardChartResultDataType_HPMUInt64:
                     {
                         out_stream << session_->VariantDecode_HPMUInt64(measure_value.m_VariantData);
+                        break;
+                    }
+                    case HPMSdk::EHPMDashboardChartResultDataType_Binary:
+                    {
+                        auto data = session_->VariantDecode_HPMUntranslatedString(measure_value.m_VariantData);
+                        out_stream << "\"" << session_->LocalizationTranslateString(session_->LocalizationGetDefaultLanguage(), data) << "\"";
                         break;
                     }
                     default:
